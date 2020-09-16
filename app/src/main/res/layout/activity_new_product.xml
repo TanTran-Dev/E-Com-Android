@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <TextView
+                android:id="@+id/tool_bar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:scrollbars="none">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp"
+            tools:context=".view.add_product.NewProductActivity">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtProductName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:hint="Tên sản phẩm"
+                app:met_floatingLabel="normal" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtProductPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edtProductName"
+                android:hint="Giá"
+                android:inputType="number"
+                app:met_floatingLabel="normal" />
+
+            <Spinner
+                android:layout_below="@id/edtProductPrice"
+                android:id="@+id/spnTrademark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:spinnerMode="dialog" />
+
+            <Spinner
+                android:layout_below="@id/spnTrademark"
+                android:id="@+id/spnProductType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:spinnerMode="dialog" />
+
+            <LinearLayout
+                android:id="@+id/layout_add_image"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_below="@id/spnProductType"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/txtSmallImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Ảnh nhỏ"
+                        android:textColor="@color/light_gray" />
+
+                    <ImageView
+                        android:id="@+id/imgPickSmallImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/txtSmallImage"
+                        android:layout_marginTop="1dp"
+                        android:src="@drawable/ic_camera" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/txtBigImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Ảnh lớn"
+                        android:textColor="@color/light_gray" />
+
+                    <ImageView
+                        android:id="@+id/imgPickBigImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/txtBigImage"
+                        android:src="@drawable/ic_camera" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnAsc"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@id/layout_add_image"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:text="+"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/btnDesc"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignTop="@id/btnAsc"
+                android:layout_toStartOf="@id/txtCountOptionProduct"
+                android:background="@null"
+                android:text="-"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/txtCountOptionProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/btnAsc"
+                android:layout_alignBottom="@id/btnAsc"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toStartOf="@id/btnAsc"
+                android:gravity="center"
+                android:text="1"
+                android:textSize="20dp" />
+
+
+            <TextView
+                android:id="@+id/txtCurrentCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_add_image"
+                android:layout_alignTop="@id/btnAsc"
+                android:layout_alignBottom="@id/btnAsc"
+                android:layout_marginTop="20dp"
+                android:text="Số lượng hiện có: "
+                android:textSize="18dp" />
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/edtInformationProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtCurrentCount"
+                android:layout_marginTop="20dp"
+                android:gravity="top"
+                android:hint="Thông tin sản phẩm"
+                app:met_floatingLabel="normal" />
+
+            <Button
+                android:id="@+id/btnAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edtInformationProduct"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/selector_button"
+                android:text="Thêm"
+                android:textColor="@color/white_1000" />
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

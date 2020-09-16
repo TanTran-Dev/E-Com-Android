@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:id="@+id/layout_admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/chkDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:checked="true" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/avatar_placeholder" />
+
+        <TextView
+            android:id="@+id/txtAdminName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/imgAvatar"
+            android:text="AdminName" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtIdOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_admin"
+        android:layout_marginTop="10dp"
+        android:text="ID đơn hàng"
+        android:textColor="@color/red_200"
+        android:textSize="14dp" />
+
+
+    <TextView
+        android:id="@+id/txtDeliveryAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtIdOrder"
+        android:layout_marginTop="16dp"
+        android:text="Address"
+        android:textColor="@color/light_gray"
+        android:textSize="14dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgProduct"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_below="@id/txtDeliveryAddress"
+        android:layout_marginTop="14dp"
+        android:src="@drawable/avatar_placeholder"
+        app:civ_border_width="1dp"
+        app:civ_circle_background_color="@color/black_1000" />
+
+    <TextView
+        android:id="@+id/txtProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/imgProduct"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/imgProduct"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Tên sản phẩm"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/txtProductPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtProductName"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="Gia sản phẩm"
+        android:textColor="@color/light_gray"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/txtCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgProduct"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:text="Số lượng"
+        android:textColor="@color/light_gray"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/txtOrderDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/layout_money"
+        android:layout_alignBottom="@id/layout_money"
+        android:gravity="center"
+        android:text="Ngày đặt"
+        android:textColor="@color/light_gray"
+        android:textSize="14dp"
+        android:textStyle="italic" />
+
+    <RelativeLayout
+        android:id="@+id/layout_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtCount"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp">
+
+        <ImageView
+            android:id="@+id/imgMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_money" />
+
+        <TextView
+            android:id="@+id/txtResultMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/imgMoney"
+            android:layout_alignBottom="@id/imgMoney"
+            android:layout_marginStart="4dp"
+            android:layout_toEndOf="@id/imgMoney"
+            android:gravity="center"
+            android:text="Thanh tien"
+            android:textColor="@color/red_200"
+            android:textSize="14dp" />
+    </RelativeLayout>
+</RelativeLayout>

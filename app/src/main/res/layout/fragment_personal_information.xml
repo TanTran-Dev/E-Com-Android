@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/txt_personal_info_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Thông tin cá nhân"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/btn_edit_info"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:padding="6dp"
+        android:layout_alignParentEnd="true"
+        android:background="?selectableItemBackgroundBorderless"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_edit" />
+
+    <ImageView
+        android:id="@+id/img_birthday"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@id/txt_personal_info_title"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_calendar" />
+
+    <TextView
+        android:id="@+id/txt_birthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/img_birthday"
+        android:layout_toEndOf="@id/img_birthday"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@android:color/black"
+        android:textSize="16dp"
+        tools:text="dd/MM/yyyy" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_birthday"
+        android:layout_toEndOf="@+id/img_birthday"
+        android:text="Ngày sinh"
+        android:textSize="12dp"
+        android:textStyle="italic" />
+
+    <ImageView
+        android:id="@+id/img_gender"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@id/img_birthday"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_gender" />
+
+    <TextView
+        android:id="@+id/txt_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/img_gender"
+        android:layout_toEndOf="@id/img_gender"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@android:color/black"
+        android:textSize="16dp"
+        tools:text="Gender" />
+
+    <TextView
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_gender"
+        android:layout_alignStart="@id/txt_gender"
+        android:text="Giới tính"
+        android:textSize="12dp"
+        android:textStyle="italic" />
+
+    <ImageView
+        android:id="@+id/img_address"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@id/img_gender"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_home" />
+
+    <TextView
+        android:id="@+id/txt_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/img_address"
+        android:layout_toEndOf="@id/img_address"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@android:color/black"
+        android:textSize="16dp"
+        tools:text="Address" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_address"
+        android:layout_alignStart="@id/txt_address"
+        android:text="Địa chỉ"
+        android:textSize="12dp"
+        android:textStyle="italic" />
+
+    <ImageView
+        android:id="@+id/img_email"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@id/img_address"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_mail" />
+
+    <TextView
+        android:id="@+id/txt_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/img_email"
+        android:layout_toEndOf="@id/img_email"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@android:color/black"
+        android:textSize="16dp"
+        tools:text="Email" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_email"
+        android:layout_alignStart="@id/txt_email"
+        android:text="Email"
+        android:textSize="12dp"
+        android:textStyle="italic" />
+
+
+    <ImageView
+        android:id="@+id/img_major"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@id/img_address"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_mail" />
+
+    <ImageView
+        android:id="@+id/img_phone"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@id/img_email"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/ic_phone" />
+
+    <TextView
+        android:id="@+id/txt_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/img_phone"
+        android:layout_toEndOf="@id/img_phone"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@android:color/black"
+        android:textSize="16dp"
+        tools:text="Phone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txt_phone"
+        android:layout_alignStart="@id/txt_phone"
+        android:text="Điện thoại"
+        android:textSize="12dp"
+        android:textStyle="italic" />
+
+</RelativeLayout>

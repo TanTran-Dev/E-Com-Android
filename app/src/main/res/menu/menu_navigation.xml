@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item android:title="Chức năng chính">
+            <menu>
+                <item
+                    android:id="@+id/nav_view_home"
+                    android:icon="@drawable/ic_home"
+                    android:title="Về trang chủ" />
+
+                <item
+                    android:id="@+id/nav_list_orders"
+                    android:icon="@drawable/ic_order"
+                    android:title="Danh sách hoá đơn" />
+
+                <item
+                    android:id="@+id/nav_view_rate"
+                    android:icon="@drawable/ic_star"
+                    android:title="Xem đánh giá" />
+
+                <item
+                    android:id="@+id/nav_change_password"
+                    android:icon="@drawable/ic_change_password"
+                    android:title="Đổi mật khẩu"/>
+            </menu>
+        </item>
+
+        <item android:title="Khác">
+            <menu>
+                <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/ic_share"
+                    android:title="Chia sẻ ứng dụng" />
+
+                <item
+                    android:id="@+id/nav_rate_app"
+                    android:icon="@drawable/ic_ch_play"
+                    android:title="Đánh giá ứng dụng" />
+            </menu>
+        </item>
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="Đăng xuất" />
+    </group>
+</menu>
