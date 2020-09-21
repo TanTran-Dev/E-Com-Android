@@ -15,13 +15,14 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.teamadr.ecommerceapp.R;
 import com.teamadr.ecommerceapp.constants.Gender;
 import com.teamadr.ecommerceapp.constants.StringConstant;
 import com.teamadr.ecommerceapp.constants.UserType;
 import com.teamadr.ecommerceapp.custom_view.LoadingDialog;
-import com.teamadr.ecommerceapp.presenter.admin.AdminRegistrationPresenter;
-import com.teamadr.ecommerceapp.presenter.admin.AdminRegistrationPresenterImpl;
+import com.teamadr.ecommerceapp.presenter.salesman.SalesmanRegistrationPresenter;
+import com.teamadr.ecommerceapp.presenter.salesman.SalesmanRegistrationPresenterImpl;
 import com.teamadr.ecommerceapp.presenter.customer.CustomerRegistrationPresenter;
 import com.teamadr.ecommerceapp.presenter.customer.CustomerRegistrationPresenterImpl;
 import com.teamadr.ecommerceapp.view.login.LoginActivity;
@@ -42,9 +43,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     @BindView(R.id.radioAdmin)
     RadioButton radioAdmin;
     @BindView(R.id.txtDateOfBirth)
-    TextView txtDateOfBirth;
-    @BindView(R.id.txtBirthDay)
-    TextView txtBirthDay;
+    TextInputEditText txtDateOfBirth;
     @BindView(R.id.edtFirstName)
     EditText edtFirstName;
     @BindView(R.id.edtLastName)
@@ -83,7 +82,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     private LoadingDialog loadingDialog;
-    private AdminRegistrationPresenter adminRegistrationPresenter;
+    private SalesmanRegistrationPresenter salesmanRegistrationPresenter;
     private CustomerRegistrationPresenter customerRegistrationPresenter;
 
     @Override
@@ -96,7 +95,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         toolbar.setNavigationIcon(R.drawable.ic_back);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("");
+            actionBar.setTitle("Đăng ký tài khoản");
         }
 
         initPresenter();
@@ -105,7 +104,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     }
 
     private void initPresenter() {
-        adminRegistrationPresenter = new AdminRegistrationPresenterImpl(this, this);
+        salesmanRegistrationPresenter = new SalesmanRegistrationPresenterImpl(this, this);
         customerRegistrationPresenter = new CustomerRegistrationPresenterImpl(this, this);
     }
 
@@ -173,19 +172,19 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                     txtUsernameValidate.setVisibility(View.GONE);
                 }else {
                     txtUsernameValidate.setVisibility(View.VISIBLE);
-                    txtUsernameValidate.setText("Sai định dạng gmail!!");
+                    txtUsernameValidate.setText("Sai định dạng Email!!");
                 }
 
                 UserType userType = null;
                 if (radioAdmin.isChecked()){
-                    userType = UserType.ADMIN;
+                    userType = UserType.SALESMAN;
                 }
 
                 if (radioCustomer.isChecked()){
                     userType = UserType.CUSTOMER;
                 }
                 if (checkUser()) {
-                    adminRegistrationPresenter.registerNewAdmin(
+                    salesmanRegistrationPresenter.registerNewAdmin(
                             firstName, lastName, address, birthDay, phone, getUserGender(),
                             username, password, confirmPassword, userType);
                 } else {

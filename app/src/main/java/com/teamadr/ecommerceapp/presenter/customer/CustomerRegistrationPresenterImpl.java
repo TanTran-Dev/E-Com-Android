@@ -6,9 +6,12 @@ import android.widget.Toast;
 
 import com.teamadr.ecommerceapp.constants.Gender;
 import com.teamadr.ecommerceapp.constants.UserType;
+import com.teamadr.ecommerceapp.event_bus.RegisterEvent;
 import com.teamadr.ecommerceapp.model.request.customer.NewCustomerDto;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
 import com.teamadr.ecommerceapp.view.registration.RegistrationView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import io.reactivex.functions.Consumer;
 
@@ -82,23 +85,19 @@ public class CustomerRegistrationPresenterImpl implements CustomerRegistrationPr
 
         view.showLoadingProgress();
         interactor.registrationNewCustomer(newCustomerDto,
-                new Consumer<ResponseBody>() {
-                    @Override
-                    public void accept(ResponseBody responseBody) throws Exception {
-                        view.hideLoadingProgress();
-                        view.navigateToLogin();
+                responseBody -> {
+                    view.hideLoadingProgress();
+                    view.navigateToLogin();
 
-                        Toast.makeText(context, "Đăng ký tài khoản mua hàng thành công!", Toast.LENGTH_LONG).show();
-                    }
+                    Toast.makeText(context, "Đăng ký tài khoản mua hàng thành công!", Toast.LENGTH_LONG).show();
+
+                    EventBus.getDefault().post(new RegisterEvent(newCustomerDto.getUserName()));
                 },
-                new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        throwable.printStackTrace();
-                        Log.d("onError", "accept: " + throwable.toString());
-                        Toast.makeText(context, "Đăng ký thất bại", Toast.LENGTH_LONG).show();
-                        view.hideLoadingProgress();
-                    }
+                throwable -> {
+                    throwable.printStackTrace();
+                    Log.d("onError", "accept: " + throwable.toString());
+                    Toast.makeText(context, "Đăng ký thất bại", Toast.LENGTH_LONG).show();
+                    view.hideLoadingProgress();
                 });
     }
 }

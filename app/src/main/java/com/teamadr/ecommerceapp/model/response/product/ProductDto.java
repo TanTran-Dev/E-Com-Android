@@ -1,11 +1,9 @@
 package com.teamadr.ecommerceapp.model.response.product;
 
 import com.google.gson.annotations.SerializedName;
-import com.teamadr.ecommerceapp.model.response.admin.AdminDto;
+import com.teamadr.ecommerceapp.model.response.salesman.SalesmanDto;
 import com.teamadr.ecommerceapp.model.response.product_type.ProductTypeDto;
 import com.teamadr.ecommerceapp.model.response.trademark.TrademarkDto;
-
-import java.util.Date;
 
 public class ProductDto {
     @SerializedName("id")
@@ -39,7 +37,7 @@ public class ProductDto {
     private TrademarkDto trademarkDto;
 
     @SerializedName("adminDto")
-    private AdminDto adminDto;
+    private SalesmanDto salesmanDto;
 
     @SerializedName("information")
     private String information;
@@ -126,12 +124,12 @@ public class ProductDto {
         this.trademarkDto = trademarkDto;
     }
 
-    public AdminDto getAdminDto() {
-        return adminDto;
+    public SalesmanDto getSalesmanDto() {
+        return salesmanDto;
     }
 
-    public void setAdminDto(AdminDto adminDto) {
-        this.adminDto = adminDto;
+    public void setSalesmanDto(SalesmanDto salesmanDto) {
+        this.salesmanDto = salesmanDto;
     }
 
     public String getInformation() {

@@ -18,4 +18,10 @@
     <string name="buy_now">Mua ngay</string>
     <string name="contact_now">Liên hệ ngay: </string>
     <string name="select_all">Chọn tất cả</string>
+    <string name="have_not_account_register">Chưa có tài khoản? Đăng ký</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="save_account">Lưu tài khoản</string>
+    <string name="password">Mật khẩu</string>
+    <string name="email">Email</string>
+    <string name="valid">valid</string>
 </resources>

@@ -57,7 +57,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class HomeActivity extends AppCompatActivity implements HomeView,
         NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -154,7 +153,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView,
             fabFilter.setVisibility(View.VISIBLE);
         }
 
-        if (UserType.ADMIN.getLabel().equals(UserAuth.getUserType(this))) {
+        if (UserType.SALESMAN.getLabel().equals(UserAuth.getUserType(this))) {
             fabAdd.setVisibility(View.VISIBLE);
             fabFilter.setVisibility(View.VISIBLE);
         }
@@ -196,7 +195,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView,
             navigationView.inflateMenu(R.menu.menu_navigation);
         }
 
-        if (UserType.ADMIN.getLabel().equals(UserAuth.getUserType(this))) {
+        if (UserType.SALESMAN.getLabel().equals(UserAuth.getUserType(this))) {
             navigationView.inflateMenu(R.menu.menu_navigation_for_admin);
         }
 

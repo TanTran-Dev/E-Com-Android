@@ -2,10 +2,10 @@ package com.teamadr.ecommerceapp.presenter.profile_edit;
 
 import android.content.Context;
 
-import com.teamadr.ecommerceapp.model.request.admin.NewAdminDto;
+import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;
 import com.teamadr.ecommerceapp.model.request.customer.NewCustomerDto;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
-import com.teamadr.ecommerceapp.service.api.AdminProfileService;
+import com.teamadr.ecommerceapp.service.api.SalesmanProfileService;
 import com.teamadr.ecommerceapp.service.api.CustomerProfileService;
 import com.teamadr.ecommerceapp.service.api_client.APIClient;
 import com.teamadr.ecommerceapp.utils.UserAuth;
@@ -26,12 +26,12 @@ public class ProfileEditInteractorImpl implements ProfileEditInteractor {
     }
 
     @Override
-    public void updateProfileAdmin(String adminId, NewAdminDto newAdminDto,
+    public void updateProfileAdmin(String adminId, NewSalesmanDto newSalesmanDto,
                                    Consumer<ResponseBody> onSuccess,
                                    Consumer<Throwable> onError) {
         Disposable disposable = APIClient.getInstance()
-                .create(AdminProfileService.class)
-                .updateProfileAdmin(UserAuth.getBearerToken(context), adminId, newAdminDto)
+                .create(SalesmanProfileService.class)
+                .updateProfileSalesman(UserAuth.getBearerToken(context), adminId, newSalesmanDto)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(onSuccess, onError);

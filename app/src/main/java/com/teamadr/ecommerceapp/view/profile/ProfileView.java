@@ -1,9 +1,9 @@
 package com.teamadr.ecommerceapp.view.profile;
 
-import com.teamadr.ecommerceapp.model.response.admin.AdminDto;
+import com.teamadr.ecommerceapp.model.response.salesman.SalesmanDto;
 import com.teamadr.ecommerceapp.model.response.customer.CustomerDto;
 
 public interface ProfileView {
-    void refreshProfileAdmin(AdminDto adminDto);
+    void refreshProfileAdmin(SalesmanDto salesmanDto);
     void refreshProfileCustomer(CustomerDto customerDto);
 }

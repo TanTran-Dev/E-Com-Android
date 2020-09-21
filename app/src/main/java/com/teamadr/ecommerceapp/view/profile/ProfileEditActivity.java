@@ -13,15 +13,16 @@ import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamadr.ecommerceapp.R;
 import com.teamadr.ecommerceapp.constants.Gender;
 import com.teamadr.ecommerceapp.constants.StringConstant;
 import com.teamadr.ecommerceapp.constants.UserType;
 import com.teamadr.ecommerceapp.custom_view.LoadingDialog;
-import com.teamadr.ecommerceapp.model.request.admin.NewAdminDto;
+import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;
 import com.teamadr.ecommerceapp.model.request.customer.NewCustomerDto;
-import com.teamadr.ecommerceapp.model.response.admin.AdminDto;
+import com.teamadr.ecommerceapp.model.response.salesman.SalesmanDto;
 import com.teamadr.ecommerceapp.model.response.customer.CustomerDto;
 import com.teamadr.ecommerceapp.presenter.profile_edit.ProfileEditPresenter;
 import com.teamadr.ecommerceapp.presenter.profile_edit.ProfileEditPresenterImpl;
@@ -35,13 +36,13 @@ import butterknife.ButterKnife;
 
 public class ProfileEditActivity extends AppCompatActivity implements ProfileEditView, View.OnClickListener {
     @BindView(R.id.edtFirstName)
-    MaterialEditText edtFirstName;
+    TextInputEditText edtFirstName;
     @BindView(R.id.edtLastName)
-    MaterialEditText edtLastName;
+    TextInputEditText edtLastName;
     @BindView(R.id.edtAddress)
-    MaterialEditText edtAddress;
+    TextInputEditText edtAddress;
     @BindView(R.id.edtPhoneNumber)
-    MaterialEditText edtPhoneNumber;
+    TextInputEditText edtPhoneNumber;
     @BindView(R.id.txtDateOfBirth)
     TextView txtDateOfBirth;
     @BindView(R.id.radioMale)
@@ -55,7 +56,7 @@ public class ProfileEditActivity extends AppCompatActivity implements ProfileEdi
     @BindView(R.id.btnUpdateProfile)
     Button btnUpdateProfile;
 
-    private AdminDto adminDto;
+    private SalesmanDto salesmanDto;
     private CustomerDto customerDto;
 
     private ProfileEditPresenter profileEditPresenter;
@@ -97,16 +98,16 @@ public class ProfileEditActivity extends AppCompatActivity implements ProfileEdi
     }
 
     private void initView() {
-        if (UserType.ADMIN.getLabel().equals(UserAuth.getUserType(this))) {
-            adminDto = (AdminDto) getIntent().getSerializableExtra(StringConstant.KEY_USER_PROFILE);
-            avatarUrl = adminDto.getAvatarUrl();
-            coverUrl = adminDto.getImageCoverUrl();
-            edtFirstName.setText(adminDto.getFirstName());
-            edtLastName.setText(adminDto.getLastName());
-            edtAddress.setText(adminDto.getAddress());
-            txtDateOfBirth.setText(adminDto.getBirthDay());
-            edtPhoneNumber.setText(adminDto.getPhone());
-            if (adminDto.getGender().getValue().equals(Gender.MALE.getValue())) {
+        if (UserType.SALESMAN.getLabel().equals(UserAuth.getUserType(this))) {
+            salesmanDto = (SalesmanDto) getIntent().getSerializableExtra(StringConstant.KEY_USER_PROFILE);
+            avatarUrl = salesmanDto.getAvatarUrl();
+            coverUrl = salesmanDto.getImageCoverUrl();
+            edtFirstName.setText(salesmanDto.getFirstName());
+            edtLastName.setText(salesmanDto.getLastName());
+            edtAddress.setText(salesmanDto.getAddress());
+            txtDateOfBirth.setText(salesmanDto.getBirthDay());
+            edtPhoneNumber.setText(salesmanDto.getPhone());
+            if (salesmanDto.getGender().getValue().equals(Gender.MALE.getValue())) {
                 radioMale.setChecked(true);
             } else {
                 radioFemale.setChecked(true);
@@ -154,9 +155,10 @@ public class ProfileEditActivity extends AppCompatActivity implements ProfileEdi
             break;
 
             case R.id.btnUpdateProfile: {
-                if (UserType.ADMIN.getLabel().equals(UserAuth.getUserType(this))) {
-                    NewAdminDto newAdminProfileDto = new NewAdminDto();
+                if (UserType.SALESMAN.getLabel().equals(UserAuth.getUserType(this))) {
+                    NewSalesmanDto newAdminProfileDto = new NewSalesmanDto();
 
+                    newAdminProfileDto.setUserName(UserAuth.getUsername(this));
                     newAdminProfileDto.setPassword(UserAuth.getUserPassword(this));
                     newAdminProfileDto.setFirstName(edtFirstName.getText().toString());
                     newAdminProfileDto.setLastName(edtLastName.getText().toString());
@@ -164,7 +166,7 @@ public class ProfileEditActivity extends AppCompatActivity implements ProfileEdi
                     newAdminProfileDto.setBirthDay(txtDateOfBirth.getText().toString());
                     newAdminProfileDto.setAvatarUrl(avatarUrl);
                     newAdminProfileDto.setImageCoverUrl(coverUrl);
-                    newAdminProfileDto.setUserType(UserType.ADMIN);
+                    newAdminProfileDto.setUserType(UserType.SALESMAN);
                     if (radioMale.isChecked()) {
                         newAdminProfileDto.setGender(Gender.MALE);
                     }
@@ -180,6 +182,7 @@ public class ProfileEditActivity extends AppCompatActivity implements ProfileEdi
 
                     NewCustomerDto newCustomerProfileDto = new NewCustomerDto();
 
+                    newCustomerProfileDto.setUserName(UserAuth.getUsername(this));
                     newCustomerProfileDto.setPassword(UserAuth.getUserPassword(this));
                     newCustomerProfileDto.setFirstName(edtFirstName.getText().toString());
                     newCustomerProfileDto.setLastName(edtLastName.getText().toString());
@@ -214,5 +217,10 @@ public class ProfileEditActivity extends AppCompatActivity implements ProfileEdi
     @Override
     public void hideLoadingProgress() {
         loadingDialog.dismiss();
+    }
+
+    @Override
+    public void navigateToProfile() {
+        finish();
     }
 }

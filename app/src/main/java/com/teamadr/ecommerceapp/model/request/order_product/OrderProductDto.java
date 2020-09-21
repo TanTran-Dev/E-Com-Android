@@ -2,7 +2,7 @@ package com.teamadr.ecommerceapp.model.request.order_product;
 
 import com.google.gson.annotations.SerializedName;
 import com.teamadr.ecommerceapp.model.request.shopping_cart.ShoppingCart;
-import com.teamadr.ecommerceapp.model.response.admin.AdminDto;
+import com.teamadr.ecommerceapp.model.response.salesman.SalesmanDto;
 import com.teamadr.ecommerceapp.model.response.customer.CustomerDto;
 import com.teamadr.ecommerceapp.model.response.product.ProductDto;
 
@@ -32,7 +32,7 @@ public class OrderProductDto {
     private CustomerDto customer;
 
     @SerializedName("admin")
-    private AdminDto admin;
+    private SalesmanDto admin;
 
     @SerializedName("shoppingCart")
     private ShoppingCart shoppingCart;
@@ -85,11 +85,11 @@ public class OrderProductDto {
         this.customer = customer;
     }
 
-    public AdminDto getAdmin() {
+    public SalesmanDto getAdmin() {
         return admin;
     }
 
-    public void setAdmin(AdminDto admin) {
+    public void setAdmin(SalesmanDto admin) {
         this.admin = admin;
     }
 

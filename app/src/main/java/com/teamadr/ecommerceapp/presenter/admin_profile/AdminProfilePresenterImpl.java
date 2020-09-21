@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.teamadr.ecommerceapp.model.request.admin.NewAdminDto;
+import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;
 import com.teamadr.ecommerceapp.utils.UserAuth;
 import com.teamadr.ecommerceapp.view.profile.ProfileView;
 
@@ -20,7 +20,7 @@ public class AdminProfilePresenterImpl implements AdminProfilePresenter {
     }
 
     @Override
-    public void editProfileAdmin(NewAdminDto newAdminProfileDto) {
+    public void editProfileAdmin(NewSalesmanDto newAdminProfileDto) {
         interactor.updateProfileAdmin(UserAuth.getUserId(context), newAdminProfileDto,
                 responseBody -> {
                     Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();

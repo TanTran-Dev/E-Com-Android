@@ -3,7 +3,7 @@ package com.teamadr.ecommerceapp.presenter.profile_edit;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.teamadr.ecommerceapp.model.request.admin.NewAdminDto;
+import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;
 import com.teamadr.ecommerceapp.model.request.customer.NewCustomerDto;
 import com.teamadr.ecommerceapp.utils.UserAuth;
 import com.teamadr.ecommerceapp.view.profile.ProfileEditView;
@@ -20,12 +20,13 @@ public class ProfileEditPresenterImpl implements ProfileEditPresenter {
     }
 
     @Override
-    public void editProfileAdmin(NewAdminDto newAdminDto) {
+    public void editProfileAdmin(NewSalesmanDto newSalesmanDto) {
         view.showLoadingProgress();
-        interactor.updateProfileAdmin(UserAuth.getUserId(context), newAdminDto,
+        interactor.updateProfileAdmin(UserAuth.getUserId(context), newSalesmanDto,
                 responseBody -> {
                     view.hideLoadingProgress();
                     Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                    view.navigateToProfile();
                 },
                 Throwable::printStackTrace);
     }
@@ -37,6 +38,7 @@ public class ProfileEditPresenterImpl implements ProfileEditPresenter {
                 responseBody -> {
                     view.hideLoadingProgress();
                     Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                    view.navigateToProfile();
                 },
                 Throwable::printStackTrace);
     }

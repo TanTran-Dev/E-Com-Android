@@ -27,9 +27,15 @@ public class UserAuth {
         return RequestContansts.BEARER + preferences.getString(StringConstant.KEY_ACCESS_TOKEN, "");
     }
 
+    public static String getUsername(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(
+                StringConstant.PREF_AUTH, Context.MODE_PRIVATE);
+        return preferences.getString(StringConstant.KEY_USERNAME, "");
+    }
+
     public static String getUserPassword(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(
-                StringConstant.PREF_PASSWORD, Context.MODE_PRIVATE);
+                StringConstant.PREF_AUTH, Context.MODE_PRIVATE);
         return preferences.getString(StringConstant.KEY_PASSWORD, "");
     }
 
@@ -60,9 +66,10 @@ public class UserAuth {
         editor.apply();
     }
 
-    public static void savePassword(Context context, String password){
-        SharedPreferences preferences = context.getSharedPreferences(StringConstant.PREF_PASSWORD, Context.MODE_PRIVATE);
+    public static void saveUserAuth(Context context, String username, String password) {
+        SharedPreferences preferences = context.getSharedPreferences(StringConstant.PREF_AUTH, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(StringConstant.KEY_USERNAME, username);
         editor.putString(StringConstant.KEY_PASSWORD, password);
         editor.apply();
     }

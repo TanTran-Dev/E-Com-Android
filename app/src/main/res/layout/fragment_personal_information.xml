@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,171 +21,269 @@
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:padding="6dp"
         android:layout_alignParentEnd="true"
         android:background="?selectableItemBackgroundBorderless"
+        android:padding="6dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_edit" />
 
-    <ImageView
-        android:id="@+id/img_birthday"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_below="@id/txt_personal_info_title"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/ic_calendar" />
-
-    <TextView
-        android:id="@+id/txt_birthday"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/card_birthday"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/img_birthday"
-        android:layout_toEndOf="@id/img_birthday"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@android:color/black"
-        android:textSize="16dp"
-        tools:text="dd/MM/yyyy" />
+        android:layout_below="@id/txt_personal_info_title">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="12dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/img_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="30dp"
+                    android:src="@drawable/ic_calendar" />
+
+                <TextView
+                    android:id="@+id/tv_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/img_birthday"
+                    android:text="Ngày sinh"
+                    android:textStyle="italic" />
+
+
+                <TextView
+                    android:id="@+id/txt_birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_birthday"
+                    android:layout_alignStart="@id/tv_birthday"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    tools:text="dd/MM/yyyy" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="12dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/img_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="30dp"
+                    android:src="@drawable/ic_gender" />
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/img_gender"
+                    android:text="Giới tính"
+                    android:textSize="12dp"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/txt_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_gender"
+                    android:layout_alignStart="@id/tv_gender"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:textColor="@android:color/black"
+                    android:textSize="16dp"
+                    tools:text="Gender" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_address"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_birthday"
-        android:layout_toEndOf="@+id/img_birthday"
-        android:text="Ngày sinh"
-        android:textSize="12dp"
-        android:textStyle="italic" />
+        android:layout_below="@id/card_birthday"
+        android:layout_alignStart="@id/card_birthday"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="10dp"
+        android:layout_weight="1"
+        android:foreground="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="12dp">
 
-    <ImageView
-        android:id="@+id/img_gender"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_below="@id/img_birthday"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/ic_gender" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
-    <TextView
-        android:id="@+id/txt_gender"
-        android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/img_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="30dp"
+                android:src="@drawable/ic_address" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/img_address"
+                android:text="Địa chỉ"
+                android:textSize="12dp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/txt_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_address"
+                android:layout_alignStart="@id/tv_address"
+                android:ellipsize="end"
+                android:textColor="@android:color/black"
+                android:textSize="16dp"
+                tools:text="Address" />
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_phone"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/img_gender"
-        android:layout_toEndOf="@id/img_gender"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@android:color/black"
-        android:textSize="16dp"
-        tools:text="Gender" />
+        android:layout_below="@id/card_address"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="10dp"
+        android:layout_weight="1"
+        android:foreground="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="12dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
+            <ImageView
+                android:id="@+id/img_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="30dp"
+                android:src="@drawable/ic_phone" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/img_phone"
+                android:text="Điện thoại"
+                android:textSize="12dp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/txt_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_phone"
+                android:layout_alignStart="@id/tv_phone"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@android:color/black"
+                android:textSize="16dp"
+                tools:text="Phone" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_email"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_gender"
-        android:layout_alignStart="@id/txt_gender"
-        android:text="Giới tính"
-        android:textSize="12dp"
-        android:textStyle="italic" />
+        android:layout_below="@id/card_phone"
+        android:layout_alignStart="@id/card_birthday"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginVertical="10dp"
+        android:layout_toEndOf="@id/card_birthday"
+        android:foreground="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="12dp">
 
-    <ImageView
-        android:id="@+id/img_address"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_below="@id/img_gender"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/ic_home" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
-    <TextView
-        android:id="@+id/txt_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/img_address"
-        android:layout_toEndOf="@id/img_address"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textColor="@android:color/black"
-        android:textSize="16dp"
-        tools:text="Address" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_address"
-        android:layout_alignStart="@id/txt_address"
-        android:text="Địa chỉ"
-        android:textSize="12dp"
-        android:textStyle="italic" />
-
-    <ImageView
-        android:id="@+id/img_email"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_below="@id/img_address"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/ic_mail" />
-
-    <TextView
-        android:id="@+id/txt_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/img_email"
-        android:layout_toEndOf="@id/img_email"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@android:color/black"
-        android:textSize="16dp"
-        tools:text="Email" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_email"
-        android:layout_alignStart="@id/txt_email"
-        android:text="Email"
-        android:textSize="12dp"
-        android:textStyle="italic" />
+            <ImageView
+                android:id="@+id/img_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="30dp"
+                android:src="@drawable/ic_mail" />
 
 
-    <ImageView
-        android:id="@+id/img_major"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_below="@id/img_address"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/ic_mail" />
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/img_email"
+                android:text="Email"
+                android:textSize="12dp"
+                android:textStyle="italic" />
 
-    <ImageView
-        android:id="@+id/img_phone"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_below="@id/img_email"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
-        android:src="@drawable/ic_phone" />
+            <TextView
+                android:id="@+id/txt_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_email"
+                android:layout_alignStart="@id/tv_email"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@android:color/black"
+                android:textSize="16dp"
+                tools:text="Email" />
 
-    <TextView
-        android:id="@+id/txt_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/img_phone"
-        android:layout_toEndOf="@id/img_phone"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@android:color/black"
-        android:textSize="16dp"
-        tools:text="Phone" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_phone"
-        android:layout_alignStart="@id/txt_phone"
-        android:text="Điện thoại"
-        android:textSize="12dp"
-        android:textStyle="italic" />
-
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

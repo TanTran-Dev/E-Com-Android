@@ -1,6 +1,6 @@
 package com.teamadr.ecommerceapp.presenter.profile_edit;
 
-import com.teamadr.ecommerceapp.model.request.admin.NewAdminDto;
+import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;
 import com.teamadr.ecommerceapp.model.request.customer.NewCustomerDto;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
 import com.teamadr.ecommerceapp.presenter.BaseInteractor;
@@ -8,7 +8,7 @@ import com.teamadr.ecommerceapp.presenter.BaseInteractor;
 import io.reactivex.functions.Consumer;
 
 public interface ProfileEditInteractor extends BaseInteractor {
-    void updateProfileAdmin(String adminId, NewAdminDto newAdminDto,
+    void updateProfileAdmin(String adminId, NewSalesmanDto newSalesmanDto,
                             Consumer<ResponseBody> onSuccess,
                             Consumer<Throwable> onError);
 

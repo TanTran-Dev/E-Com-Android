@@ -1,61 +1,41 @@
-package com.teamadr.ecommerceapp.model.request.admin;
+package com.teamadr.ecommerceapp.model.response.salesman;
 
 import com.google.gson.annotations.SerializedName;
 import com.teamadr.ecommerceapp.constants.Gender;
-import com.teamadr.ecommerceapp.constants.UserType;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class NewAdminDto {
-    @SerializedName("username")
-    private String userName;
-
-    @SerializedName("password")
-    private String password;
-
+public class SalesmanDto implements Serializable {
+    @SerializedName("id")
+    private String id;
     @SerializedName("firstName")
     private String firstName;
-
     @SerializedName("lastName")
     private String lastName;
-
-    @SerializedName("phone")
-    private String phone;
-
-    @SerializedName("gender")
-    private Gender gender;
-
     @SerializedName("address")
     private String address;
-
     @SerializedName("birthDay")
     private String birthDay;
-
+    @SerializedName("gender")
+    private Gender gender;
+    @SerializedName("phone")
+    private String phone;
+    @SerializedName("contactEmail")
+    private String contactEmail;
     @SerializedName("avatarUrl")
     private String avatarUrl;
-
     @SerializedName("imageCoverUrl")
     private String imageCoverUrl;
 
-    @SerializedName("userType")
-    private UserType userType;
-    public NewAdminDto() {
+    public SalesmanDto() {
     }
 
-    public String getUserName() {
-        return userName;
+    public String getId() {
+        return id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -74,22 +54,6 @@ public class NewAdminDto {
         this.lastName = lastName;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -106,12 +70,20 @@ public class NewAdminDto {
         this.birthDay = birthDay;
     }
 
-    public UserType getUserType() {
-        return userType;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getAvatarUrl() {
@@ -128,5 +100,13 @@ public class NewAdminDto {
 
     public void setImageCoverUrl(String imageCoverUrl) {
         this.imageCoverUrl = imageCoverUrl;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
     }
 }

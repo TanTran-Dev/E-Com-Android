@@ -1,4 +1,4 @@
-package com.teamadr.ecommerceapp.presenter.admin;
+package com.teamadr.ecommerceapp.presenter.salesman;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,18 +6,18 @@ import android.widget.Toast;
 
 import com.teamadr.ecommerceapp.constants.Gender;
 import com.teamadr.ecommerceapp.constants.UserType;
-import com.teamadr.ecommerceapp.model.request.admin.NewAdminDto;
+import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;
 import com.teamadr.ecommerceapp.view.registration.RegistrationView;
 
-public class AdminRegistrationPresenterImpl implements AdminRegistrationPresenter {
+public class SalesmanRegistrationPresenterImpl implements SalesmanRegistrationPresenter {
     private Context context;
     private RegistrationView view;
-    private AdminRegistrationInteractor interactor;
+    private SalesmanRegistrationInteractor interactor;
 
-    public AdminRegistrationPresenterImpl(Context context, RegistrationView view) {
+    public SalesmanRegistrationPresenterImpl(Context context, RegistrationView view) {
         this.context = context;
         this.view = view;
-        this.interactor = new AdminRegistrationInteractorImpl(context);
+        this.interactor = new SalesmanRegistrationInteractorImpl(context);
     }
 
     @Override
@@ -69,20 +69,20 @@ public class AdminRegistrationPresenterImpl implements AdminRegistrationPresente
         }
 
 
-        NewAdminDto newAdminDto = new NewAdminDto();
-        newAdminDto.setUserName(username);
-        newAdminDto.setPassword(password);
+        NewSalesmanDto newSalesmanDto = new NewSalesmanDto();
+        newSalesmanDto.setUserName(username);
+        newSalesmanDto.setPassword(password);
 
-        newAdminDto.setFirstName(firstName);
-        newAdminDto.setLastName(lastName);
-        newAdminDto.setAddress(address);
-        newAdminDto.setBirthDay(birthDay);
-        newAdminDto.setPhone(phone);
-        newAdminDto.setGender(gender);
-        newAdminDto.setUserType(userType);
+        newSalesmanDto.setFirstName(firstName);
+        newSalesmanDto.setLastName(lastName);
+        newSalesmanDto.setAddress(address);
+        newSalesmanDto.setBirthDay(birthDay);
+        newSalesmanDto.setPhone(phone);
+        newSalesmanDto.setGender(gender);
+        newSalesmanDto.setUserType(userType);
 
         view.showLoadingProgress();
-        interactor.registerNewAdminByEmail(newAdminDto,
+        interactor.registerNewAdminByEmail(newSalesmanDto,
                 responseBody -> {
                     view.hideLoadingProgress();
                     view.navigateToLogin();

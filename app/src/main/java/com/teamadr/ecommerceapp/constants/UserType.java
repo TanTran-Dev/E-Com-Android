@@ -1,7 +1,7 @@
 package com.teamadr.ecommerceapp.constants;
 
 public enum UserType {
-    ADMIN("Admin"),
+    SALESMAN("Salesman"),
     CUSTOMER("Customer");
 
     private String label;

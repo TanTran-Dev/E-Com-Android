@@ -186,7 +186,7 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
             productDetailPresenter.deleteComment(commentDto.getId(), productId);
         });
 
-        if (UserType.ADMIN.getLabel().equals(UserAuth.getUserType(this))) {
+        if (UserType.SALESMAN.getLabel().equals(UserAuth.getUserType(this))) {
             fabComment.setVisibility(View.GONE);
             lnOption.setVisibility(View.GONE);
         } else {
@@ -213,15 +213,15 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
                 .into(imgImageProduct);
         Glide.with(this).load(this.productDto.getSmallImageUrl())
                 .into(imgSmallImageProduct);
-        Glide.with(this).load(this.productDto.getAdminDto().getAvatarUrl())
+        Glide.with(this).load(this.productDto.getSalesmanDto().getAvatarUrl())
                 .into(imgAvatarAdmin);
         txtProductCount.setText("Hiện có: " + this.productDto.getCount() + " sản phẩm");
         txtProductName.setText(this.productDto.getName());
         txtProductPrice.setText(this.productDto.getPrice() + " VNĐ");
-        txtAdminName.setText(this.productDto.getAdminDto().getFirstName() + " " + this.productDto.getAdminDto().getLastName());
+        txtAdminName.setText(this.productDto.getSalesmanDto().getFirstName() + " " + this.productDto.getSalesmanDto().getLastName());
 
         //set underline for txtPhone
-        SpannableString phone = new SpannableString(this.productDto.getAdminDto().getPhone());
+        SpannableString phone = new SpannableString(this.productDto.getSalesmanDto().getPhone());
         phone.setSpan(new UnderlineSpan(), 0, phone.length(), 0);
         String sub = String.valueOf(phone);
         txtPhone.setText(sub.substring(0, phone.length() - 4) + "****");
@@ -336,7 +336,7 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
 
             case R.id.txtPhone: {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + productDto.getAdminDto().getPhone()));
+                intent.setData(Uri.parse("tel:" + productDto.getSalesmanDto().getPhone()));
                 startActivity(intent);
             }
             break;
@@ -392,7 +392,7 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
         btnConfirmDialog.setOnClickListener(v -> {
             NewOrderProduct newOrderProduct = new NewOrderProduct();
             newOrderProduct.setDeliveryAddress(edtDeliveryAddressDialog.getText().toString());
-            newOrderProduct.setAdminId(productDto.getAdminDto().getId());
+            newOrderProduct.setAdminId(productDto.getSalesmanDto().getId());
             newOrderProduct.setShoppingCartId(shoppingCartId);
             newOrderProduct.setProductId(productId);
             newOrderProduct.setCount(Integer.parseInt(txtCountOptionDialog.getText().toString()));

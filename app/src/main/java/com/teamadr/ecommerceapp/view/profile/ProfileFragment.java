@@ -30,9 +30,9 @@ import com.teamadr.ecommerceapp.constants.StringConstant;
 import com.teamadr.ecommerceapp.constants.UserType;
 import com.teamadr.ecommerceapp.custom_view.LoadingDialog;
 import com.teamadr.ecommerceapp.event_bus.UserProfileEvent;
-import com.teamadr.ecommerceapp.model.request.admin.NewAdminDto;
+import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;
 import com.teamadr.ecommerceapp.model.request.customer.NewCustomerDto;
-import com.teamadr.ecommerceapp.model.response.admin.AdminDto;
+import com.teamadr.ecommerceapp.model.response.salesman.SalesmanDto;
 import com.teamadr.ecommerceapp.model.response.customer.CustomerDto;
 import com.teamadr.ecommerceapp.presenter.admin_profile.AdminProfilePresenter;
 import com.teamadr.ecommerceapp.presenter.admin_profile.AdminProfilePresenterImpl;
@@ -49,7 +49,6 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
-import static com.teamadr.ecommerceapp.view.add_product.NewProductActivity.REQUEST_BIG_IMAGE;
 
 public class ProfileFragment extends Fragment implements ProfileView, View.OnClickListener {
     @BindView(R.id.root)
@@ -83,7 +82,7 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
 
     private AdminProfilePresenter adminProfilePresenter;
     private CustomerProfilePresenter customerProfilePresenter;
-    private AdminDto adminDto;
+    private SalesmanDto salesmanDto;
     private CustomerDto customerDto;
 
     private StorageReference mStorageRef;
@@ -119,7 +118,7 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
     
 
     private void loadProfile() {
-        if (UserType.ADMIN.getLabel().equals(UserAuth.getUserType(getContext()))) {
+        if (UserType.SALESMAN.getLabel().equals(UserAuth.getUserType(getContext()))) {
             adminProfilePresenter.getProfileAdmin();
         } else {
             customerProfilePresenter.getProfileCustomer();
@@ -139,41 +138,43 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
     }
 
     @Override
-    public void refreshProfileAdmin(AdminDto adminDto) {
-        if (adminDto.getAvatarUrl() != null){
-            Glide.with(getContext()).load(adminDto.getAvatarUrl())
+    public void refreshProfileAdmin(SalesmanDto salesmanDto) {
+        this.salesmanDto = salesmanDto;
+
+        if (salesmanDto.getAvatarUrl() != null){
+            Glide.with(getContext()).load(salesmanDto.getAvatarUrl())
                     .into(imgAvatar);
         }else {
             imgAvatar.setImageResource(R.drawable.avatar_placeholder);
         }
 
-        if (adminDto.getImageCoverUrl() != null){
-            Glide.with(getContext()).load(adminDto.getImageCoverUrl())
+        if (salesmanDto.getImageCoverUrl() != null){
+            Glide.with(getContext()).load(salesmanDto.getImageCoverUrl())
                     .into(imgCover);
         }else {
             imgCover.setImageResource(R.drawable.wall_placeholder);
         }
 
 
-        txtName.setText(adminDto.getFirstName() + " " + adminDto.getLastName());
-        txtAddress.setText(adminDto.getAddress());
-        txtEmail.setText(adminDto.getContactEmail());
-        txtGender.setText(adminDto.getGender().getValue());
-        txtPhone.setText(adminDto.getPhone());
+        txtName.setText(salesmanDto.getFirstName() + " " + salesmanDto.getLastName());
+        txtAddress.setText(salesmanDto.getAddress());
+        txtEmail.setText(salesmanDto.getContactEmail());
+        txtGender.setText(salesmanDto.getGender().getValue());
+        txtPhone.setText(salesmanDto.getPhone());
 
-        txtBirthday.setText(adminDto.getBirthDay());
-
-        this.adminDto = adminDto;
+        txtBirthday.setText(salesmanDto.getBirthDay());
 
         EventBus.getDefault().post(new UserProfileEvent(
-                adminDto.getAvatarUrl(),
-                adminDto.getImageCoverUrl(),
-                adminDto.getFirstName() + " " + adminDto.getLastName(),
-                adminDto.getAddress()));
+                salesmanDto.getAvatarUrl(),
+                salesmanDto.getImageCoverUrl(),
+                salesmanDto.getFirstName() + " " + salesmanDto.getLastName(),
+                salesmanDto.getAddress()));
     }
 
     @Override
     public void refreshProfileCustomer(CustomerDto customerDto) {
+        this.customerDto = customerDto;
+
         if (customerDto.getAvatarUrl() != null){
             Glide.with(getContext()).load(customerDto.getAvatarUrl())
                     .into(imgAvatar);
@@ -191,12 +192,14 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
         txtName.setText(customerDto.getFirstName() + " " + customerDto.getLastName());
         txtAddress.setText(customerDto.getAddress());
         txtEmail.setText(customerDto.getContactEmail());
-        txtGender.setText(customerDto.getGender().getValue());
+
+        if (customerDto.getGender().getValue() != null){
+            txtGender.setText(customerDto.getGender().getValue());
+        }
         txtPhone.setText(customerDto.getPhone());
 
         txtBirthday.setText(customerDto.getBirthDay());
 
-        this.customerDto = customerDto;
 
         EventBus.getDefault().post(new UserProfileEvent(
                 customerDto.getAvatarUrl(),
@@ -211,8 +214,8 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
         switch (v.getId()) {
             case R.id.btn_edit_info: {
                 Intent intent = new Intent(getContext(), ProfileEditActivity.class);
-                if (UserType.ADMIN.getLabel().equals(UserAuth.getUserType(getContext()))) {
-                    intent.putExtra(StringConstant.KEY_USER_PROFILE, adminDto);
+                if (UserType.SALESMAN.getLabel().equals(UserAuth.getUserType(getContext()))) {
+                    intent.putExtra(StringConstant.KEY_USER_PROFILE, salesmanDto);
                 } else {
                     intent.putExtra(StringConstant.KEY_USER_PROFILE, customerDto);
                 }
@@ -262,22 +265,22 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             loadingDialog.dismiss();
                             avatarUrl = "https://storage.googleapis.com/ecommerceapp-7b1b2.appspot.com/" + filePath;
-                            if (UserType.ADMIN.getLabel().equals(UserAuth.getUserType(getContext()))) {
-                                NewAdminDto newAdminDto = new NewAdminDto();
+                            if (UserType.SALESMAN.getLabel().equals(UserAuth.getUserType(getContext()))) {
+                                NewSalesmanDto newSalesmanDto = new NewSalesmanDto();
 
-                                newAdminDto.setFirstName(adminDto.getFirstName());
-                                newAdminDto.setLastName(adminDto.getLastName());
-                                newAdminDto.setAddress(adminDto.getAddress());
-                                newAdminDto.setUserName(txtEmail.getText().toString().trim());
-                                newAdminDto.setPassword(UserAuth.getUserPassword(getContext()));
-                                newAdminDto.setUserType(UserType.ADMIN);
-                                newAdminDto.setBirthDay(adminDto.getBirthDay());
-                                newAdminDto.setGender(adminDto.getGender());
-                                newAdminDto.setPhone(adminDto.getPhone());
-                                newAdminDto.setImageCoverUrl(adminDto.getImageCoverUrl());
-                                newAdminDto.setAvatarUrl(avatarUrl);
+                                newSalesmanDto.setFirstName(salesmanDto.getFirstName());
+                                newSalesmanDto.setLastName(salesmanDto.getLastName());
+                                newSalesmanDto.setAddress(salesmanDto.getAddress());
+                                newSalesmanDto.setUserName(txtEmail.getText().toString().trim());
+                                newSalesmanDto.setPassword(UserAuth.getUserPassword(getContext()));
+                                newSalesmanDto.setUserType(UserType.SALESMAN);
+                                newSalesmanDto.setBirthDay(salesmanDto.getBirthDay());
+                                newSalesmanDto.setGender(salesmanDto.getGender());
+                                newSalesmanDto.setPhone(salesmanDto.getPhone());
+                                newSalesmanDto.setImageCoverUrl(salesmanDto.getImageCoverUrl());
+                                newSalesmanDto.setAvatarUrl(avatarUrl);
 
-                                adminProfilePresenter.editProfileAdmin(newAdminDto);
+                                adminProfilePresenter.editProfileAdmin(newSalesmanDto);
                             } else {
                                 NewCustomerDto newCustomerDto = new NewCustomerDto();
 
@@ -322,23 +325,23 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             loadingDialog.dismiss();
                             coverUrl = "https://storage.googleapis.com/ecommerceapp-7b1b2.appspot.com/" + filePath;
-                            if (UserType.ADMIN.getLabel().equals(UserAuth.getUserType(getContext()))) {
-                                NewAdminDto newAdminDto = new NewAdminDto();
+                            if (UserType.SALESMAN.getLabel().equals(UserAuth.getUserType(getContext()))) {
+                                NewSalesmanDto newSalesmanDto = new NewSalesmanDto();
 
-                                newAdminDto.setFirstName(adminDto.getFirstName());
-                                newAdminDto.setLastName(adminDto.getLastName());
-                                newAdminDto.setAddress(adminDto.getAddress());
-                                newAdminDto.setUserName(txtEmail.getText().toString().trim());
-                                newAdminDto.setPassword(UserAuth.getUserPassword(getContext()));
-                                newAdminDto.setUserType(UserType.ADMIN);
-                                newAdminDto.setBirthDay(adminDto.getBirthDay());
-                                newAdminDto.setGender(adminDto.getGender());
-                                newAdminDto.setPhone(adminDto.getPhone());
-                                newAdminDto.setImageCoverUrl(coverUrl);
-                                newAdminDto.setAvatarUrl(adminDto.getAvatarUrl());
+                                newSalesmanDto.setFirstName(salesmanDto.getFirstName());
+                                newSalesmanDto.setLastName(salesmanDto.getLastName());
+                                newSalesmanDto.setAddress(salesmanDto.getAddress());
+                                newSalesmanDto.setUserName(txtEmail.getText().toString().trim());
+                                newSalesmanDto.setPassword(UserAuth.getUserPassword(getContext()));
+                                newSalesmanDto.setUserType(UserType.SALESMAN);
+                                newSalesmanDto.setBirthDay(salesmanDto.getBirthDay());
+                                newSalesmanDto.setGender(salesmanDto.getGender());
+                                newSalesmanDto.setPhone(salesmanDto.getPhone());
+                                newSalesmanDto.setImageCoverUrl(coverUrl);
+                                newSalesmanDto.setAvatarUrl(salesmanDto.getAvatarUrl());
 
 
-                                adminProfilePresenter.editProfileAdmin(newAdminDto);
+                                adminProfilePresenter.editProfileAdmin(newSalesmanDto);
 
                             } else {
                                 NewCustomerDto newCustomerDto = new NewCustomerDto();

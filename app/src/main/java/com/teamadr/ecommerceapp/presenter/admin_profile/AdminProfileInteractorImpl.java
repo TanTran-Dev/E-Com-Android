@@ -2,10 +2,10 @@ package com.teamadr.ecommerceapp.presenter.admin_profile;
 
 import android.content.Context;
 
-import com.teamadr.ecommerceapp.model.request.admin.NewAdminDto;
+import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
-import com.teamadr.ecommerceapp.model.response.admin.AdminDto;
-import com.teamadr.ecommerceapp.service.api.AdminProfileService;
+import com.teamadr.ecommerceapp.model.response.salesman.SalesmanDto;
+import com.teamadr.ecommerceapp.service.api.SalesmanProfileService;
 import com.teamadr.ecommerceapp.service.api_client.APIClient;
 import com.teamadr.ecommerceapp.utils.UserAuth;
 
@@ -26,11 +26,11 @@ public class AdminProfileInteractorImpl implements AdminProfileInteractor {
 
     @Override
     public void getProfileAdmin(String token,
-                                Consumer<ResponseBody<AdminDto>> onSuccess,
+                                Consumer<ResponseBody<SalesmanDto>> onSuccess,
                                 Consumer<Throwable> onError) {
         Disposable disposable = APIClient.getInstance()
-                .create(AdminProfileService.class)
-                .getProfileAdmin(token)
+                .create(SalesmanProfileService.class)
+                .getProfileSalesman(token)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(onSuccess, onError);
@@ -38,12 +38,12 @@ public class AdminProfileInteractorImpl implements AdminProfileInteractor {
     }
 
     @Override
-    public void updateProfileAdmin(String adminId, NewAdminDto newAdminDto,
+    public void updateProfileAdmin(String adminId, NewSalesmanDto newSalesmanDto,
                                    Consumer<ResponseBody> onSuccess,
                                    Consumer<Throwable> onError) {
         Disposable disposable = APIClient.getInstance()
-                .create(AdminProfileService.class)
-                .updateProfileAdmin(UserAuth.getBearerToken(context), adminId, newAdminDto)
+                .create(SalesmanProfileService.class)
+                .updateProfileSalesman(UserAuth.getBearerToken(context), adminId, newSalesmanDto)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribe(onSuccess, onError);

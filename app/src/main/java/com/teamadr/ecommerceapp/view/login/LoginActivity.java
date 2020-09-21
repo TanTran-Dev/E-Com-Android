@@ -11,7 +11,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.rengwuxian.materialedittext.MaterialEditText;
+import com.google.android.material.textfield.TextInputEditText;
+import com.teamadr.ecommerceapp.event_bus.RegisterEvent;
 import com.teamadr.ecommerceapp.utils.UserAuth;
 import com.teamadr.ecommerceapp.view.home.HomeActivity;
 import com.teamadr.ecommerceapp.R;
@@ -20,6 +21,10 @@ import com.teamadr.ecommerceapp.custom_view.LoadingDialog;
 import com.teamadr.ecommerceapp.presenter.auth.AuthUsernamePasswordPresenter;
 import com.teamadr.ecommerceapp.presenter.auth.AuthUsernamePasswordPresenterImpl;
 import com.teamadr.ecommerceapp.view.registration.RegistrationActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,11 +44,11 @@ public class LoginActivity extends AppCompatActivity implements AuthenticationVi
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     @BindView(R.id.edtUsername)
-    MaterialEditText edtUserName;
+    TextInputEditText edtUserName;
     @BindView(R.id.txtValidateEmail)
     TextView txtValidateEmail;
     @BindView(R.id.edtPassword)
-    MaterialEditText edtPassword;
+    TextInputEditText edtPassword;
     @BindView(R.id.chkRemember)
     CheckBox chkRemember;
     @BindView(R.id.btnForget)
@@ -70,6 +75,17 @@ public class LoginActivity extends AppCompatActivity implements AuthenticationVi
         initData();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     protected void onPause() {
@@ -97,27 +113,31 @@ public class LoginActivity extends AppCompatActivity implements AuthenticationVi
         btnLogin.setOnClickListener(this);
         txtRegister.setOnClickListener(this);
 
-        savePreferences();
         chkRemember.setChecked(true);
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onRegisterEvent(RegisterEvent registerEvent) {
+        edtUserName.setText(registerEvent.getUsername());
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnLogin: {
-
-                if (edtUserName.getText().toString().trim().matches(emailPattern)){
+                if (edtUserName.getText().toString().trim().matches(emailPattern)) {
                     txtValidateEmail.setVisibility(View.GONE);
-                }else {
+                } else {
                     txtValidateEmail.setVisibility(View.VISIBLE);
                     txtValidateEmail.setText("Sai định dạng gmail!!");
                 }
 
                 presenter.handleLogin(
                         edtUserName.getText().toString().trim(), edtPassword.getText().toString().trim());
-
-                UserAuth.savePassword(this, edtPassword.getText().toString().trim());
+                savePreferences();
+                UserAuth.saveUserAuth(this, edtUserName.getText().toString().trim(),
+                        edtPassword.getText().toString().trim());
             }
             break;
             case R.id.txtRegister: {

@@ -1,42 +1,59 @@
-package com.teamadr.ecommerceapp.model.response.admin;
+package com.teamadr.ecommerceapp.model.request.salesman;
 
 import com.google.gson.annotations.SerializedName;
 import com.teamadr.ecommerceapp.constants.Gender;
-import com.teamadr.ecommerceapp.model.response.UserDto.UserDto;
+import com.teamadr.ecommerceapp.constants.UserType;
 
-import java.io.Serializable;
+public class NewSalesmanDto {
+    @SerializedName("username")
+    private String userName;
 
-public class AdminDto implements Serializable {
-    @SerializedName("id")
-    private String id;
+    @SerializedName("password")
+    private String password;
+
     @SerializedName("firstName")
     private String firstName;
+
     @SerializedName("lastName")
     private String lastName;
-    @SerializedName("address")
-    private String address;
-    @SerializedName("birthDay")
-    private String birthDay;
-    @SerializedName("gender")
-    private Gender gender;
+
     @SerializedName("phone")
     private String phone;
-    @SerializedName("contactEmail")
-    private String contactEmail;
+
+    @SerializedName("gender")
+    private Gender gender;
+
+    @SerializedName("address")
+    private String address;
+
+    @SerializedName("birthDay")
+    private String birthDay;
+
     @SerializedName("avatarUrl")
     private String avatarUrl;
+
     @SerializedName("imageCoverUrl")
     private String imageCoverUrl;
 
-    public AdminDto() {
+    @SerializedName("userType")
+    private UserType userType;
+    public NewSalesmanDto() {
     }
 
-    public String getId() {
-        return id;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -55,6 +72,22 @@ public class AdminDto implements Serializable {
         this.lastName = lastName;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -71,20 +104,12 @@ public class AdminDto implements Serializable {
         this.birthDay = birthDay;
     }
 
-    public Gender getGender() {
-        return gender;
+    public UserType getUserType() {
+        return userType;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setUserType(UserType userType) {
+        this.userType = userType;
     }
 
     public String getAvatarUrl() {
@@ -101,13 +126,5 @@ public class AdminDto implements Serializable {
 
     public void setImageCoverUrl(String imageCoverUrl) {
         this.imageCoverUrl = imageCoverUrl;
-    }
-
-    public String getContactEmail() {
-        return contactEmail;
-    }
-
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
     }
 }
