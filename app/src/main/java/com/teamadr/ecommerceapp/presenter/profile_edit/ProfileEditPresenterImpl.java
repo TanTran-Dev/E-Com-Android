@@ -5,8 +5,11 @@ import android.widget.Toast;
 
 import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;
 import com.teamadr.ecommerceapp.model.request.customer.NewCustomerDto;
+import com.teamadr.ecommerceapp.model.response.ResponseBody;
 import com.teamadr.ecommerceapp.utils.UserAuth;
 import com.teamadr.ecommerceapp.view.profile.ProfileEditView;
+
+import io.reactivex.functions.Consumer;
 
 public class ProfileEditPresenterImpl implements ProfileEditPresenter {
     private Context context;
@@ -35,12 +38,23 @@ public class ProfileEditPresenterImpl implements ProfileEditPresenter {
     public void editProfileCustomer(NewCustomerDto newCustomerDto) {
         view.showLoadingProgress();
         interactor.updateProfileCustomer(UserAuth.getUserId(context), newCustomerDto,
-                responseBody -> {
-                    view.hideLoadingProgress();
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
-                    view.navigateToProfile();
+                new Consumer<ResponseBody>() {
+                    @Override
+                    public void accept(ResponseBody responseBody) throws Exception {
+                        view.hideLoadingProgress();
+                        Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                        view.navigateToProfile();
+                    }
                 },
-                Throwable::printStackTrace);
+                new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        view.hideLoadingProgress();
+                        throwable.printStackTrace();
+                        view.showMessageDialog(throwable.getMessage());
+                    }
+                });
+
     }
 
     @Override

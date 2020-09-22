@@ -25,9 +25,9 @@ public class CustomerProfileInteractorImpl implements CustomerProfileInteractor 
     }
 
     @Override
-    public void getProfileAdmin(String token,
-                                Consumer<ResponseBody<CustomerDto>> onSuccess,
-                                Consumer<Throwable> onError) {
+    public void getProfileCustomer(String token,
+                                   Consumer<ResponseBody<CustomerDto>> onSuccess,
+                                   Consumer<Throwable> onError) {
         Disposable disposable = APIClient.getInstance()
                 .create(CustomerProfileService.class)
                 .getProfileCustomer(token)

@@ -119,7 +119,7 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
 
     private void loadProfile() {
         if (UserType.SALESMAN.getLabel().equals(UserAuth.getUserType(getContext()))) {
-            adminProfilePresenter.getProfileAdmin();
+            adminProfilePresenter.getProfileSalesman();
         } else {
             customerProfilePresenter.getProfileCustomer();
         }
@@ -280,7 +280,7 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
                                 newSalesmanDto.setImageCoverUrl(salesmanDto.getImageCoverUrl());
                                 newSalesmanDto.setAvatarUrl(avatarUrl);
 
-                                adminProfilePresenter.editProfileAdmin(newSalesmanDto);
+                                adminProfilePresenter.editProfileSalesman(newSalesmanDto);
                             } else {
                                 NewCustomerDto newCustomerDto = new NewCustomerDto();
 
@@ -341,7 +341,7 @@ public class ProfileFragment extends Fragment implements ProfileView, View.OnCli
                                 newSalesmanDto.setAvatarUrl(salesmanDto.getAvatarUrl());
 
 
-                                adminProfilePresenter.editProfileAdmin(newSalesmanDto);
+                                adminProfilePresenter.editProfileSalesman(newSalesmanDto);
 
                             } else {
                                 NewCustomerDto newCustomerDto = new NewCustomerDto();

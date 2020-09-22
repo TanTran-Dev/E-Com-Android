@@ -36,7 +36,7 @@ public class ProductDto {
     @SerializedName("trademarkDto")
     private TrademarkDto trademarkDto;
 
-    @SerializedName("adminDto")
+    @SerializedName("salesmanDto")
     private SalesmanDto salesmanDto;
 
     @SerializedName("information")

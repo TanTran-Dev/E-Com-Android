@@ -8,10 +8,10 @@ import com.teamadr.ecommerceapp.presenter.BaseInteractor;
 import io.reactivex.functions.Consumer;
 
 public interface AdminProfileInteractor extends BaseInteractor {
-    void getProfileAdmin(String token,
-                         Consumer<ResponseBody<SalesmanDto>> onSuccess,
-                         Consumer<Throwable> onError);
-    void updateProfileAdmin(String adminId, NewSalesmanDto newSalesmanDto,
-                            Consumer<ResponseBody> onSuccess,
+    void getProfileSalesman(String token,
+                            Consumer<ResponseBody<SalesmanDto>> onSuccess,
                             Consumer<Throwable> onError);
+    void updateProfileSalesman(String adminId, NewSalesmanDto newSalesmanDto,
+                               Consumer<ResponseBody> onSuccess,
+                               Consumer<Throwable> onError);
 }

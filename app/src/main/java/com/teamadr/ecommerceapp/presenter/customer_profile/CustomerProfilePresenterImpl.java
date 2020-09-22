@@ -36,7 +36,7 @@ public class CustomerProfilePresenterImpl implements CustomerProfilePresenter {
 
     @Override
     public void getProfileCustomer() {
-        interactor.getProfileAdmin(UserAuth.getBearerToken(context),
+        interactor.getProfileCustomer(UserAuth.getBearerToken(context),
                 customerDtoResponseBody
                         -> view.refreshProfileCustomer(customerDtoResponseBody.getData()),
                 Throwable::printStackTrace);

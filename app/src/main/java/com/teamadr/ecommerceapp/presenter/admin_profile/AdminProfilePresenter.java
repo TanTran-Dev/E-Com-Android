@@ -5,6 +5,6 @@ import com.teamadr.ecommerceapp.presenter.BasePresenter;
 
 
 public interface AdminProfilePresenter extends BasePresenter {
-    void getProfileAdmin();
-    void editProfileAdmin(NewSalesmanDto newAdminProfileDto);
+    void getProfileSalesman();
+    void editProfileSalesman(NewSalesmanDto newAdminProfileDto);
 }

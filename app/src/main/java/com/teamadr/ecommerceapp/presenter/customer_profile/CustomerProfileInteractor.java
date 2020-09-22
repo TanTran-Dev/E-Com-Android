@@ -8,9 +8,9 @@ import com.teamadr.ecommerceapp.presenter.BaseInteractor;
 import io.reactivex.functions.Consumer;
 
 public interface CustomerProfileInteractor extends BaseInteractor {
-    void getProfileAdmin(String token,
-                         Consumer<ResponseBody<CustomerDto>> onSuccess,
-                         Consumer<Throwable> onError);
+    void getProfileCustomer(String token,
+                            Consumer<ResponseBody<CustomerDto>> onSuccess,
+                            Consumer<Throwable> onError);
     void updateProfileCustomer(String customerId, NewCustomerDto newCustomerDto,
                                Consumer<ResponseBody> onSuccess,
                                Consumer<Throwable> onError);

@@ -213,8 +213,14 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
                 .into(imgImageProduct);
         Glide.with(this).load(this.productDto.getSmallImageUrl())
                 .into(imgSmallImageProduct);
-        Glide.with(this).load(this.productDto.getSalesmanDto().getAvatarUrl())
-                .into(imgAvatarAdmin);
+
+        if (productDto.getSalesmanDto().getAvatarUrl() != null){
+            Glide.with(this).load(this.productDto.getSalesmanDto().getAvatarUrl())
+                    .into(imgAvatarAdmin);
+        }else{
+            imgAvatarAdmin.setImageResource(R.drawable.avatar_placeholder);
+        }
+
         txtProductCount.setText("Hiện có: " + this.productDto.getCount() + " sản phẩm");
         txtProductName.setText(this.productDto.getName());
         txtProductPrice.setText(this.productDto.getPrice() + " VNĐ");

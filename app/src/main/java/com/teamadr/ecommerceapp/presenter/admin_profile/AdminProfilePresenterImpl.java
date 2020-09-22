@@ -20,11 +20,11 @@ public class AdminProfilePresenterImpl implements AdminProfilePresenter {
     }
 
     @Override
-    public void editProfileAdmin(NewSalesmanDto newAdminProfileDto) {
-        interactor.updateProfileAdmin(UserAuth.getUserId(context), newAdminProfileDto,
+    public void editProfileSalesman(NewSalesmanDto newAdminProfileDto) {
+        interactor.updateProfileSalesman(UserAuth.getUserId(context), newAdminProfileDto,
                 responseBody -> {
                     Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
-                    getProfileAdmin();
+                    getProfileSalesman();
                 },
                 Throwable::printStackTrace);
     }
@@ -35,9 +35,8 @@ public class AdminProfilePresenterImpl implements AdminProfilePresenter {
     }
 
     @Override
-    public void getProfileAdmin() {
-
-        interactor.getProfileAdmin(UserAuth.getBearerToken(context),
+    public void getProfileSalesman() {
+        interactor.getProfileSalesman(UserAuth.getBearerToken(context),
                 adminDtoResponseBody -> {
                     Log.i("Profile", "accept: " + adminDtoResponseBody.getData());
                     view.refreshProfileAdmin(adminDtoResponseBody.getData());

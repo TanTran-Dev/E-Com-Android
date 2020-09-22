@@ -25,9 +25,9 @@ public class AdminProfileInteractorImpl implements AdminProfileInteractor {
     }
 
     @Override
-    public void getProfileAdmin(String token,
-                                Consumer<ResponseBody<SalesmanDto>> onSuccess,
-                                Consumer<Throwable> onError) {
+    public void getProfileSalesman(String token,
+                                   Consumer<ResponseBody<SalesmanDto>> onSuccess,
+                                   Consumer<Throwable> onError) {
         Disposable disposable = APIClient.getInstance()
                 .create(SalesmanProfileService.class)
                 .getProfileSalesman(token)
@@ -38,9 +38,9 @@ public class AdminProfileInteractorImpl implements AdminProfileInteractor {
     }
 
     @Override
-    public void updateProfileAdmin(String adminId, NewSalesmanDto newSalesmanDto,
-                                   Consumer<ResponseBody> onSuccess,
-                                   Consumer<Throwable> onError) {
+    public void updateProfileSalesman(String adminId, NewSalesmanDto newSalesmanDto,
+                                      Consumer<ResponseBody> onSuccess,
+                                      Consumer<Throwable> onError) {
         Disposable disposable = APIClient.getInstance()
                 .create(SalesmanProfileService.class)
                 .updateProfileSalesman(UserAuth.getBearerToken(context), adminId, newSalesmanDto)

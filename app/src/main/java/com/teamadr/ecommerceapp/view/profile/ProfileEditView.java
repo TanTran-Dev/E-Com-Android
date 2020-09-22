@@ -4,4 +4,5 @@ public interface ProfileEditView {
     void showLoadingProgress();
     void hideLoadingProgress();
     void navigateToProfile();
+    void showMessageDialog(String message);
 }

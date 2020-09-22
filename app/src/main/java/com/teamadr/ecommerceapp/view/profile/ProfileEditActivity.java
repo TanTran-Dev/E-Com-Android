@@ -1,10 +1,12 @@
 package com.teamadr.ecommerceapp.view.profile;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -222,5 +224,14 @@ public class ProfileEditActivity extends AppCompatActivity implements ProfileEdi
     @Override
     public void navigateToProfile() {
         finish();
+    }
+
+    @Override
+    public void showMessageDialog(String message) {
+        new AlertDialog.Builder(this)
+                .setTitle("Thông báo")
+                .setMessage(message)
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .show();
     }
 }
