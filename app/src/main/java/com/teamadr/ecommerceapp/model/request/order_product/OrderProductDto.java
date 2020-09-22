@@ -31,7 +31,7 @@ public class OrderProductDto {
     @SerializedName("customer")
     private CustomerDto customer;
 
-    @SerializedName("admin")
+    @SerializedName("salesman")
     private SalesmanDto admin;
 
     @SerializedName("shoppingCart")
