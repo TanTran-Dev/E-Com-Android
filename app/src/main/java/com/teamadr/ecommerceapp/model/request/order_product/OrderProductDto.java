@@ -31,8 +31,8 @@ public class OrderProductDto {
     @SerializedName("customer")
     private CustomerDto customer;
 
-    @SerializedName("salesman")
-    private SalesmanDto admin;
+    @SerializedName("salesmanDto")
+    private SalesmanDto salesmanDto;
 
     @SerializedName("shoppingCart")
     private ShoppingCart shoppingCart;
@@ -85,12 +85,12 @@ public class OrderProductDto {
         this.customer = customer;
     }
 
-    public SalesmanDto getAdmin() {
-        return admin;
+    public SalesmanDto getSalesmanDto() {
+        return salesmanDto;
     }
 
-    public void setAdmin(SalesmanDto admin) {
-        this.admin = admin;
+    public void setSalesmanDto(SalesmanDto salesmanDto) {
+        this.salesmanDto = salesmanDto;
     }
 
     public ShoppingCart getShoppingCart() {

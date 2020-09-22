@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,13 +43,17 @@ public class OrderProductAdapter extends EndlessLoadingRecyclerViewAdapter {
         if (holder instanceof OrderProductViewHolder) {
             OrderProductViewHolder viewHolder = (OrderProductViewHolder) holder;
             OrderProductDto orderProductDto = getItem(position, OrderProductDto.class);
+            if (orderProductDto.getSalesmanDto().getAvatarUrl() != null){
+                Glide.with(viewHolder.itemView.getContext()).load(orderProductDto.getSalesmanDto().getAvatarUrl())
+                        .into(viewHolder.imgAvatar);
+            }else {
+                viewHolder.imgAvatar.setImageResource(R.drawable.avatar_placeholder);
+            }
 
-            Glide.with(viewHolder.itemView.getContext()).load(orderProductDto.getAdmin().getAvatarUrl())
-                    .into(viewHolder.imgAvatar);
             Glide.with(viewHolder.itemView.getContext()).load(orderProductDto.getProduct().getSmallImageUrl())
                     .into(viewHolder.imgProduct);
-            viewHolder.txtAdminName.setText(orderProductDto.getAdmin().getFirstName() + " " +
-                    orderProductDto.getAdmin().getLastName());
+            viewHolder.txtAdminName.setText(orderProductDto.getSalesmanDto().getFirstName() + " " +
+                    orderProductDto.getSalesmanDto().getLastName());
             viewHolder.txtIdOrder.setText("ID đơn hàng: " + orderProductDto.getId());
             viewHolder.txtProductName.setText(orderProductDto.getProduct().getName());
             viewHolder.txtCount.setText("x " + orderProductDto.getCount());
