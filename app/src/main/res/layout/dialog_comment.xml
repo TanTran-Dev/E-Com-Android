@@ -6,9 +6,48 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_margin="10dp"
+            android:textSize="24dp"
+            android:text="Bình luận"
+            android:id="@+id/txtComment"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_comment_layout"
+            android:layout_below="@id/txtComment"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập bình luận..." />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_comment_layout"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:background="@null"
+            android:text="Bình luận" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/btnComment"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/btnComment"
+            android:background="@null"
+            android:text="Huỷ" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

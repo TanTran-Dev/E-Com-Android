@@ -163,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/selector_button"
+                android:background="@drawable/selector_button_login"
                 android:text="Cập nhật"
                 android:textColor="@color/white_1000" />
         </LinearLayout>

@@ -93,7 +93,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/selector_button"
+            android:background="@drawable/selector_button_login"
             android:text="@string/login"
             android:textColor="#fff"
             android:textSize="20dp" />

@@ -37,8 +37,11 @@ public class ProductAdapter extends EndlessLoadingRecyclerViewAdapter {
             ProductViewHolder productViewHolder = (ProductViewHolder) holder;
             ProductDto productDto = getItem(position, ProductDto.class);
 
+
             Glide.with(productViewHolder.itemView.getContext()).load(productDto.getSmallImageUrl())
+                    .error(R.drawable.logo_placeholder)
                     .into(productViewHolder.imgProduct);
+
 
             productViewHolder.txtProductName.setText(productDto.getName());
             productViewHolder.txtProductPrice.setText(String.valueOf(productDto.getPrice()));

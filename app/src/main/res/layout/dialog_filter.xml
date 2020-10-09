@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="30dp">
@@ -53,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:background="@drawable/selector_button"
+            android:background="@drawable/selector_button_login"
             android:text="@string/confirm"
             android:textColor="@color/white_1000" />
 
@@ -63,7 +62,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:background="@drawable/selector_button"
+            android:background="@drawable/selector_button_login"
             android:text="@string/cancel"
             android:textColor="@color/white_1000" />
     </LinearLayout>

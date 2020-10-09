@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -20,182 +18,228 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <TextView
-                android:textColor="@color/white_1000"
                 android:id="@+id/tool_bar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white_1000"
                 android:textSize="18dp" />
 
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <LinearLayout
+        android:layout_centerInParent="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
-        android:scrollbars="none">
+        android:layout_height="wrap_content">
 
-
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
+            android:layout_margin="10dp"
+            app:cardCornerRadius="12dp"
+            android:elevation="4dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp"
-            tools:context=".view.add_product.NewProductActivity">
+            android:layout_height="wrap_content">
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/edtProductName"
+            <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:hint="Tên sản phẩm"
-                app:met_floatingLabel="normal" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/edtProductPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/edtProductName"
-                android:hint="Giá"
-                android:inputType="number"
-                app:met_floatingLabel="normal" />
+                <ScrollView
+                    android:layout_gravity="top"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none">
 
-            <Spinner
-                android:layout_below="@id/edtProductPrice"
-                android:id="@+id/spnTrademark"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:spinnerMode="dialog" />
 
-            <Spinner
-                android:layout_below="@id/spnTrademark"
-                android:id="@+id/spnProductType"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:spinnerMode="dialog" />
-
-            <LinearLayout
-                android:id="@+id/layout_add_image"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_below="@id/spnProductType"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/txtSmallImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="Ảnh nhỏ"
-                        android:textColor="@color/light_gray" />
-
-                    <ImageView
-                        android:id="@+id/imgPickSmallImage"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@id/txtSmallImage"
-                        android:layout_marginTop="1dp"
-                        android:src="@drawable/ic_camera" />
-                </RelativeLayout>
+                        android:orientation="vertical"
+                        android:padding="10dp"
+                        tools:context=".view.add_product.NewProductActivity">
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/text_layout_product_name"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtProductName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentTop="true"
+                                android:hint="Tên sản phẩm"
+                                app:met_floatingLabel="normal" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <TextView
-                        android:id="@+id/txtBigImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="Ảnh lớn"
-                        android:textColor="@color/light_gray" />
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_below="@id/text_layout_product_name"
+                            android:id="@+id/text_layout_product_price"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtProductPrice"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Giá"
+                                android:inputType="number"
+                                app:met_floatingLabel="normal" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageView
-                        android:id="@+id/imgPickBigImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@id/txtBigImage"
-                        android:src="@drawable/ic_camera" />
-                </RelativeLayout>
+                        <Spinner
+                            android:id="@+id/spnTrademark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/text_layout_product_price"
+                            android:layout_marginTop="20dp"
+                            android:spinnerMode="dialog" />
+
+                        <Spinner
+                            android:id="@+id/spnProductType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/spnTrademark"
+                            android:layout_marginTop="20dp"
+                            android:spinnerMode="dialog" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_add_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="170dp"
+                            android:layout_below="@id/spnProductType"
+                            android:layout_marginTop="20dp"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/txtSmallImage"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="Ảnh nhỏ"
+                                    android:textColor="@color/light_gray" />
+
+                                <ImageView
+                                    android:id="@+id/imgPickSmallImage"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_below="@id/txtSmallImage"
+                                    android:layout_marginTop="1dp"
+                                    android:src="@drawable/ic_camera" />
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/txtBigImage"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="Ảnh lớn"
+                                    android:textColor="@color/light_gray" />
+
+                                <ImageView
+                                    android:id="@+id/imgPickBigImage"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_below="@id/txtBigImage"
+                                    android:src="@drawable/ic_camera" />
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/btnAsc"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_below="@id/layout_add_image"
+                            android:layout_alignParentEnd="true"
+                            android:background="@null"
+                            android:text="+"
+                            android:textSize="20dp" />
+
+                        <Button
+                            android:id="@+id/btnDesc"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_alignTop="@id/btnAsc"
+                            android:layout_toStartOf="@id/txtCountOptionProduct"
+                            android:background="@null"
+                            android:text="-"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:id="@+id/txtCountOptionProduct"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@id/btnAsc"
+                            android:layout_alignBottom="@id/btnAsc"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_toStartOf="@id/btnAsc"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textSize="20dp" />
+
+
+                        <TextView
+                            android:id="@+id/txtCurrentCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/layout_add_image"
+                            android:layout_alignTop="@id/btnAsc"
+                            android:layout_alignBottom="@id/btnAsc"
+                            android:layout_marginTop="20dp"
+                            android:text="Số lượng hiện có: "
+                            android:textSize="18dp" />
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_below="@id/txtCurrentCount"
+                            android:id="@+id/text_layout_info"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtInformationProduct"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:gravity="top"
+                                android:hint="Thông tin sản phẩm"
+                                app:met_floatingLabel="normal" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <Button
+                            android:id="@+id/btnAdd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/text_layout_info"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/selector_button_login"
+                            android:text="Thêm"
+                            android:textColor="@color/white_1000" />
+                    </RelativeLayout>
+                </ScrollView>
+
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnAsc"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_below="@id/layout_add_image"
-                android:layout_alignParentEnd="true"
-                android:background="@null"
-                android:text="+"
-                android:textSize="20dp" />
-
-            <Button
-                android:id="@+id/btnDesc"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignTop="@id/btnAsc"
-                android:layout_toStartOf="@id/txtCountOptionProduct"
-                android:background="@null"
-                android:text="-"
-                android:textSize="20dp" />
-
-            <TextView
-                android:id="@+id/txtCountOptionProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@id/btnAsc"
-                android:layout_alignBottom="@id/btnAsc"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_toStartOf="@id/btnAsc"
-                android:gravity="center"
-                android:text="1"
-                android:textSize="20dp" />
+        </androidx.cardview.widget.CardView>
 
 
-            <TextView
-                android:id="@+id/txtCurrentCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/layout_add_image"
-                android:layout_alignTop="@id/btnAsc"
-                android:layout_alignBottom="@id/btnAsc"
-                android:layout_marginTop="20dp"
-                android:text="Số lượng hiện có: "
-                android:textSize="18dp" />
+    </LinearLayout>
 
 
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/edtInformationProduct"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtCurrentCount"
-                android:layout_marginTop="20dp"
-                android:gravity="top"
-                android:hint="Thông tin sản phẩm"
-                app:met_floatingLabel="normal" />
+</RelativeLayout>
 
-            <Button
-                android:id="@+id/btnAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/edtInformationProduct"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/selector_button"
-                android:text="Thêm"
-                android:textColor="@color/white_1000" />
-        </RelativeLayout>
-    </ScrollView>
-
-</LinearLayout>

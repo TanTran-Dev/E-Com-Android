@@ -7,7 +7,9 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -29,6 +31,10 @@ import com.bumptech.glide.Glide;
 import com.example.flatdialoglibrary.dialog.FlatDialog;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textview.MaterialTextView;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.teamadr.ecommerceapp.R;
 import com.teamadr.ecommerceapp.adapter.recycle_view.EndlessLoadingRecyclerViewAdapter;
 import com.teamadr.ecommerceapp.adapter.recycle_view.ProductCommentAdapter;
@@ -70,12 +76,6 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
     TextView txtProductInformation;
     @BindView(R.id.txtProductCount)
     TextView txtProductCount;
-    @BindView(R.id.txtProductCountOption)
-    TextView txtProductCountOption;
-    @BindView(R.id.btnAsc)
-    Button btnAsc;
-    @BindView(R.id.btnDesc)
-    Button btnDesc;
     @BindView(R.id.fabComment)
     FloatingActionButton fabComment;
 
@@ -92,13 +92,15 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
     Button btnBuyNow;
     @BindView(R.id.ln_option)
     LinearLayout lnOption;
-    @BindView(R.id.rl_select_count)
-    RelativeLayout rlSelectCount;
 
     @BindView(R.id.rclComment)
     RecyclerView rclComment;
     @BindView(R.id.scroll_view_detail)
     NestedScrollView scrollViewDetail;
+
+//    @BindView(R.id.bottom_sheet_select_product)
+//    LinearLayout bottomSheetSelectProduct;
+//    BottomSheetBehavior sheetBehavior;
 
     private CircleImageView imgProductDialog;
     private TextView txtProductNameDialog;
@@ -156,22 +158,14 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
     }
 
     private void initView() {
+//        sheetBehavior = BottomSheetBehavior.from(bottomSheetSelectProduct);
+//        bottomSheetSelectProduct.setVisibility(View.GONE);
         loadingDialog = new LoadingDialog(this);
-        btnAsc.setOnClickListener(this);
-        btnDesc.setOnClickListener(this);
         btnAddToCart.setOnClickListener(this);
         btnBuyNow.setOnClickListener(this);
         fabComment.setOnClickListener(this);
         txtPhone.setOnClickListener(this);
 
-
-        if (isHideButton) {
-            lnOption.setVisibility(View.GONE);
-            rlSelectCount.setVisibility(View.GONE);
-        } else {
-            lnOption.setVisibility(View.VISIBLE);
-            rlSelectCount.setVisibility(View.VISIBLE);
-        }
 
         //init comment
         commentAdapter = new ProductCommentAdapter(this);
@@ -193,6 +187,33 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
             fabComment.setVisibility(View.VISIBLE);
             lnOption.setVisibility(View.VISIBLE);
         }
+
+//        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+//            @Override
+//            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+//                switch (newState){
+//                    case BottomSheetBehavior.STATE_HIDDEN:
+//                        break;
+//                    case BottomSheetBehavior.STATE_EXPANDED: {
+//                        btnBuyNow.setText("Close Sheet");
+//                    }
+//                    break;
+//                    case BottomSheetBehavior.STATE_COLLAPSED: {
+////                        btnBottomSheet.setText("Expand Sheet");
+//                    }
+//                    break;
+//                    case BottomSheetBehavior.STATE_DRAGGING:
+//                        break;
+//                    case BottomSheetBehavior.STATE_SETTLING:
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -210,16 +231,17 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
     public void refreshProductDetail(ProductDto productDto) {
         this.productDto = productDto;
         Glide.with(this).load(this.productDto.getBigImageUrl())
+                .error(R.drawable.wall_placeholder)
                 .into(imgImageProduct);
         Glide.with(this).load(this.productDto.getSmallImageUrl())
+                .error(R.drawable.logo_placeholder)
                 .into(imgSmallImageProduct);
 
-        if (productDto.getSalesmanDto().getAvatarUrl() != null){
-            Glide.with(this).load(this.productDto.getSalesmanDto().getAvatarUrl())
-                    .into(imgAvatarAdmin);
-        }else{
-            imgAvatarAdmin.setImageResource(R.drawable.avatar_placeholder);
-        }
+
+        Glide.with(this).load(this.productDto.getSalesmanDto().getAvatarUrl())
+                .error(R.drawable.avatar_placeholder)
+                .into(imgAvatarAdmin);
+
 
         txtProductCount.setText("Hiện có: " + this.productDto.getCount() + " sản phẩm");
         txtProductName.setText(this.productDto.getName());
@@ -233,7 +255,6 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
         txtPhone.setText(sub.substring(0, phone.length() - 4) + "****");
 
         txtProductInformation.setText(this.productDto.getInformation());
-        txtProductCountOption.setText(countOption + "");
         countLimit = this.productDto.getCount();
     }
 
@@ -315,26 +336,6 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
             }
             break;
 
-            case R.id.btnAsc: {
-                countOption++;
-                if (countOption <= countLimit) {
-                    txtProductCountOption.setText(countOption + "");
-                } else {
-                    countOption = countLimit;
-                }
-            }
-            break;
-
-            case R.id.btnDesc: {
-                countOption--;
-                if (countOption >= 1) {
-                    txtProductCountOption.setText(countOption + "");
-                } else {
-                    countOption = 1;
-                }
-            }
-            break;
-
             case R.id.fabComment: {
                 showDialogComment();
             }
@@ -366,6 +367,7 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
         txtTotalMoney = dialog.findViewById(R.id.txtTotalMoney);
 
         Glide.with(this).load(productDto.getSmallImageUrl())
+                .error(R.drawable.logo_placeholder)
                 .into(imgProductDialog);
         txtProductNameDialog.setText(productDto.getName());
         txtProductPriceDialog.setText("Giá: " + productDto.getPrice());
@@ -419,36 +421,42 @@ public class ProductDetailActivity extends AppCompatActivity implements ProductD
     }
 
     private void showDialogComment() {
-        final FlatDialog flatDialog = new FlatDialog(this);
-        flatDialog.setTitle("Bình luận")
-                .setLargeTextFieldHint("Nhập bình luận...")
-                .setFirstButtonText("Bình luận")
-                .setSecondButtonText("Huỷ")
-                .setBackgroundColor(Color.parseColor("#F3F9A7"))
-                .setLargeTextFieldHintColor(Color.parseColor("#000000"))
-                .setLargeTextFieldBorderColor(Color.parseColor("#000000"))
-                .setLargeTextFieldTextColor(Color.parseColor("#000000"))
-                .setTitleColor(Color.parseColor("#000000"))
-                .setFirstButtonColor(Color.parseColor("#74ebd5"))
-                .setSecondButtonColor(Color.parseColor("#f7797d"))
-                .setFirstButtonTextColor(Color.parseColor("#000000"))
-                .setSecondButtonTextColor(Color.parseColor("#000000"))
-                .withFirstButtonListner(view -> {
-                    String comment = flatDialog.getFirstTextField();
-                    if (comment.isEmpty()) {
-                        Toast.makeText(ProductDetailActivity.this, "Nhập bình luận", Toast.LENGTH_SHORT).show();
-                    } else {
-                        NewComment newComment = new NewComment();
-                        newComment.setContent(comment);
-                        newComment.setCustomerId(UserAuth.getUserId(ProductDetailActivity.this));
-                        newComment.setProductId(productId);
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_comment);
+        dialog.show();
 
-                        productDetailPresenter.createComment(newComment, productId);
-                        commentAdapter.notifyDataSetChanged();
-                        flatDialog.dismiss();
+        TextInputEditText edtComment = dialog.findViewById(R.id.edtComment);
+        Button btnComment = dialog.findViewById(R.id.btnComment);
+        Button btnCancel = dialog.findViewById(R.id.btnCancel);
+
+        btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String comment = edtComment.getText().toString();
+                if (comment.isEmpty()) {
+                    Toast.makeText(ProductDetailActivity.this, "Nhập bình luận", Toast.LENGTH_SHORT).show();
+                } else {
+                    NewComment newComment = new NewComment();
+                    newComment.setContent(comment);
+                    newComment.setCustomerId(UserAuth.getUserId(ProductDetailActivity.this));
+                    newComment.setProductId(productId);
+
+                    productDetailPresenter.createComment(newComment, productId);
+                    commentAdapter.notifyDataSetChanged();
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
                     }
-                })
-                .withSecondButtonListner(view -> flatDialog.dismiss())
-                .show();
+                };
+            }
+        });
     }
 }

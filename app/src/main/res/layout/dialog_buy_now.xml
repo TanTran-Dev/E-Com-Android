@@ -3,18 +3,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@color/colorPrimary"
+    android:layout_height="wrap_content"
     android:padding="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        app:civ_border_width="1dp"
         android:id="@+id/imgProduct"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginTop="50dp"
-        android:src="@drawable/avatar_placeholder" />
+        android:src="@drawable/avatar_placeholder"
+        app:civ_border_width="1dp" />
 
     <TextView
         android:id="@+id/txtProductName"
@@ -24,7 +22,7 @@
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@id/imgProduct"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:maxLines="2"
         android:text="ProductName"
         android:textSize="16dp" />
 
@@ -66,11 +64,11 @@
             android:textSize="16dp" />
 
         <Button
-            android:background="@null"
             android:id="@+id/btnDesc"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/txtProductCountOption"
+            android:background="@null"
             android:text="-"
             android:textSize="20dp" />
 
@@ -87,32 +85,41 @@
             android:textSize="16sp" />
 
         <Button
-            android:background="@null"
             android:id="@+id/btnAsc"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:background="@null"
             android:text="+"
             android:textSize="20dp" />
     </RelativeLayout>
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/edtDeliveryAddress"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_select_count"
         android:layout_marginTop="20dp"
-        android:hint="Địa chỉ nhận"
-        app:met_floatingLabel="normal" />
+        android:hint="Địa chỉ nhận">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtDeliveryAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:met_floatingLabel="normal" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnConfirm"
         android:layout_width="120dp"
         android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
         android:layout_below="@id/txtTotalMoney"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:background="@drawable/selector_button"
+        android:background="@drawable/selector_button_login"
         android:gravity="center"
         android:text="Xác nhận"
         android:textColor="@color/white_1000" />
@@ -130,7 +137,7 @@
         android:id="@+id/txtTotalMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edtDeliveryAddress"
+        android:layout_below="@id/textLayout"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
         android:text="Thành tiền"

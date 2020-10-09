@@ -56,6 +56,7 @@ public class ProductCommentAdapter extends EndlessLoadingRecyclerViewAdapter {
             commentViewHolder.txtCommentDate.setText(commentDto.getCommentDate());
             Glide.with(holder.itemView.getContext())
                     .load(commentDto.getCustomerDto().getAvatarUrl())
+                    .error(R.drawable.avatar_placeholder)
                     .into(commentViewHolder.imgUserComment);
             commentViewHolder.btnDelete.setVisibility(View.GONE);
         }

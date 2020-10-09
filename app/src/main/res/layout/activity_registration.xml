@@ -345,7 +345,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
-                    android:background="@drawable/selector_button"
+                    android:background="@drawable/selector_button_login"
                     android:text="@string/register"
                     android:textColor="@color/white_1000" />
             </LinearLayout>
