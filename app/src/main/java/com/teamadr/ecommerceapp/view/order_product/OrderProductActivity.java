@@ -21,9 +21,9 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdacciaro.iOSDialog.iOSDialog;
 import com.gdacciaro.iOSDialog.iOSDialogBuilder;
 import com.teamadr.ecommerceapp.R;
-import com.teamadr.ecommerceapp.adapter.recycle_view.EndlessLoadingRecyclerViewAdapter;
+import com.teamadr.ecommerceapp.adapter.recycle_view.base.EndlessLoadingRecyclerViewAdapter;
 import com.teamadr.ecommerceapp.adapter.recycle_view.OrderProductAdapter;
-import com.teamadr.ecommerceapp.adapter.recycle_view.RecyclerViewAdapter;
+import com.teamadr.ecommerceapp.adapter.recycle_view.base.RecyclerViewAdapter;
 import com.teamadr.ecommerceapp.model.request.order_product.OrderProductDto;
 import com.teamadr.ecommerceapp.presenter.order_product.OrderProductPresenter;
 import com.teamadr.ecommerceapp.presenter.order_product.OrderProductPresenterImpl;
@@ -242,7 +242,7 @@ public class OrderProductActivity extends AppCompatActivity implements OrderProd
                 .setCancelable(false)
                 .setPositiveListener("Xác nhận", dialog -> {
                     List<OrderProductDto> list =
-                            orderProductAdapter.getSelectedItemModel(OrderProductDto.class);
+                            orderProductAdapter.getSelectedItemModels(OrderProductDto.class);
                     List<String> orderProductIds = new ArrayList<>();
 
                     for (OrderProductDto orderProductDto : list) {

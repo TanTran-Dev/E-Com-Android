@@ -12,15 +12,15 @@ public class Page<T> {
     private int pageSize;
 
     @SerializedName("totalItems")
-    private int totalItem;
+    private int totalItems;
 
     @SerializedName("items")
     private List<T> items;
 
-    public Page(int pageIndex, int pageSize, int totalItem, List<T> items) {
+    public Page(int pageIndex, int pageSize, int totalItems, List<T> items) {
         this.pageIndex = pageIndex;
         this.pageSize = pageSize;
-        this.totalItem = totalItem;
+        this.totalItems = totalItems;
         this.items = items;
     }
 
@@ -43,12 +43,12 @@ public class Page<T> {
         this.pageSize = pageSize;
     }
 
-    public int getTotalItem() {
-        return totalItem;
+    public int getTotalItems() {
+        return totalItems;
     }
 
-    public void setTotalItem(int totalItem) {
-        this.totalItem = totalItem;
+    public void setTotalItems(int totalItems) {
+        this.totalItems = totalItems;
     }
 
     public List<T> getItems() {
@@ -59,13 +59,10 @@ public class Page<T> {
         this.items = items;
     }
 
-    @Override
-    public String toString() {
-        return "Page{" +
-                "mPageIndex=" + pageIndex +
-                ", mPageSize=" + pageSize +
-                ", mTotalItem=" + totalItem +
-                ", mItems=" + (items == null ? "" : items.toString()) +
-                '}';
+    public int getMaxPageIndex() {
+        if (totalItems == 0) {
+            return 0;
+        }
+        return ((int) Math.ceil(totalItems * 1.0 / pageSize)) - 1;
     }
 }

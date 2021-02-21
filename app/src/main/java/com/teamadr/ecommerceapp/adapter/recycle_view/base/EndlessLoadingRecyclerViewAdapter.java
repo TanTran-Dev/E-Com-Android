@@ -1,4 +1,4 @@
-package com.teamadr.ecommerceapp.adapter.recycle_view;
+package com.teamadr.ecommerceapp.adapter.recycle_view.base;
 
 import android.content.Context;
 import android.view.View;
@@ -6,10 +6,6 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-/**
- * Created by Admin on 5/14/2017.
- */
 
 public abstract class EndlessLoadingRecyclerViewAdapter extends RecyclerViewAdapter {
     public static final int VIEW_TYPE_LOADING = -1;
@@ -42,7 +38,7 @@ public abstract class EndlessLoadingRecyclerViewAdapter extends RecyclerViewAdap
                         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                         int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
                         int lastVisibleItemPosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
-                        if (firstVisibleItemPosition >= 0 && lastVisibleItemPosition == getItemCount() - 1) {
+                        if (firstVisibleItemPosition > 0 && lastVisibleItemPosition == getItemCount() - 1) {
                             isLoading = true;
                             loadingMoreListener.onLoadMore();
                         }

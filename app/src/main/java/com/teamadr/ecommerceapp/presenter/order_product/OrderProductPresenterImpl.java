@@ -34,7 +34,7 @@ public class OrderProductPresenterImpl implements OrderProductPresenter {
                     view.hideShimmerLoading();
                     view.hideRefreshingProgress();
                     Page<OrderProductDto> page = pageResponseBody.getData();
-                    view.refreshOrders(page.getItems(), page.getTotalItem());
+                    view.refreshOrders(page.getItems(), page.getTotalItems());
                     pageIndex = 0;
                     view.enableLoadingMore(true);
                 },
@@ -55,7 +55,7 @@ public class OrderProductPresenterImpl implements OrderProductPresenter {
                     view.addMoreOrderProducts(page.getItems());
                     pageIndex++;
 
-                    if (pageIndex >= Math.ceil(page.getTotalItem() / RequestContansts.NUM_PAGE_SIZE)) {
+                    if (pageIndex >= Math.ceil(page.getTotalItems() / RequestContansts.NUM_PAGE_SIZE)) {
                         view.disableLoadingMore(true);
                     } else {
                         view.disableLoadingMore(false);

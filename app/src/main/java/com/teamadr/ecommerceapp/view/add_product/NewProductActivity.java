@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -131,11 +132,11 @@ public class NewProductActivity extends AppCompatActivity implements NewProductV
         loadingDialog = new LoadingDialog(this);
         newProductPresenter.refreshTrademark();
         newProductPresenter.refreshProductType();
-        trademarkAdapter = new TrademarkAdapter(this, listTrademark);
-        spnTrademark.setAdapter(trademarkAdapter);
+        trademarkAdapter = new TrademarkAdapter(this);
+        spnTrademark.setAdapter((SpinnerAdapter) trademarkAdapter);
 
-        productTypeAdapter = new ProductTypeAdapter(this, listProductTypes);
-        spnProductType.setAdapter(productTypeAdapter);
+        productTypeAdapter = new ProductTypeAdapter(this);
+        spnProductType.setAdapter((SpinnerAdapter) productTypeAdapter);
 
         btnAdd.setOnClickListener(this);
         btnAsc.setOnClickListener(this);

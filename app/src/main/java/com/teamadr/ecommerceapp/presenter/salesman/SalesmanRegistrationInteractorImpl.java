@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
-import com.teamadr.ecommerceapp.service.api.SalesmanRegService;
+import com.teamadr.ecommerceapp.service.api.salesman.SalesmanRegService;
 import com.teamadr.ecommerceapp.service.api_client.APIClient;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

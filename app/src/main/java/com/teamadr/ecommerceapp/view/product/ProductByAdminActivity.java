@@ -22,9 +22,9 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdacciaro.iOSDialog.iOSDialog;
 import com.gdacciaro.iOSDialog.iOSDialogBuilder;
 import com.teamadr.ecommerceapp.R;
-import com.teamadr.ecommerceapp.adapter.recycle_view.EndlessLoadingRecyclerViewAdapter;
+import com.teamadr.ecommerceapp.adapter.recycle_view.base.EndlessLoadingRecyclerViewAdapter;
 import com.teamadr.ecommerceapp.adapter.recycle_view.ProductAdapter;
-import com.teamadr.ecommerceapp.adapter.recycle_view.RecyclerViewAdapter;
+import com.teamadr.ecommerceapp.adapter.recycle_view.base.RecyclerViewAdapter;
 import com.teamadr.ecommerceapp.constants.StringConstant;
 import com.teamadr.ecommerceapp.model.response.product.ProductDto;
 import com.teamadr.ecommerceapp.presenter.product.ProductByAdminPresenter;
@@ -95,7 +95,7 @@ public class ProductByAdminActivity extends AppCompatActivity implements Product
     private void initView() {
         productAdapter = new ProductAdapter(this);
         productAdapter.addOnItemClickListener(this);
-        productAdapter.setLoadingMoreListener(this);
+//        productAdapter.setLoadingMoreListener(this);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         rclProduct.setLayoutManager(new LinearLayoutManager(this));
@@ -151,7 +151,7 @@ public class ProductByAdminActivity extends AppCompatActivity implements Product
                 .setCancelable(false)
                 .setPositiveListener("Xác nhận", dialog -> {
                     List<ProductDto> list =
-                            productAdapter.getSelectedItemModel(ProductDto.class);
+                            productAdapter.getSelectedItemModels(ProductDto.class);
                     List<Integer> productIds = new ArrayList<>();
 
                     for (ProductDto productDto : list) {
@@ -224,21 +224,21 @@ public class ProductByAdminActivity extends AppCompatActivity implements Product
 
     @Override
     public void showLoadingMore(boolean isShow) {
-        if (isShow) {
-            productAdapter.showLoadingItem(true);
-        } else {
-            productAdapter.hideLoadingItem();
-        }
+//        if (isShow) {
+//            productAdapter.showLoadingItem(true);
+//        } else {
+//            productAdapter.hideLoadingItem();
+//        }
     }
 
     @Override
     public void disableLoadingMore(boolean disable) {
-        productAdapter.enableLoadingMore(!disable);
+//        productAdapter.enableLoadingMore(!disable);
     }
 
     @Override
     public void enableLoadingMore(boolean enable) {
-        productAdapter.enableLoadingMore(enable);
+//        productAdapter.enableLoadingMore(enable);
     }
 
     @Override

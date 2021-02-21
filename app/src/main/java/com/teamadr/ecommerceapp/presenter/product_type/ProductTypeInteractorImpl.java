@@ -5,7 +5,7 @@ import android.content.Context;
 import com.teamadr.ecommerceapp.model.response.Page;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
 import com.teamadr.ecommerceapp.model.response.product_type.ProductTypeDto;
-import com.teamadr.ecommerceapp.service.api.ProductTypeService;
+import com.teamadr.ecommerceapp.service.api.sale_product.ProductTypeService;
 import com.teamadr.ecommerceapp.service.api_client.APIClient;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

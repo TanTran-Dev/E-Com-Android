@@ -5,7 +5,7 @@ import android.content.Context;
 import com.teamadr.ecommerceapp.model.request.auth.UsernamePasswordDto;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
 import com.teamadr.ecommerceapp.model.response.auth.AuthenticationResult;
-import com.teamadr.ecommerceapp.service.api.AuthenticationService;
+import com.teamadr.ecommerceapp.service.api.oauth2.AuthenticationService;
 import com.teamadr.ecommerceapp.service.api_client.APIClient;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

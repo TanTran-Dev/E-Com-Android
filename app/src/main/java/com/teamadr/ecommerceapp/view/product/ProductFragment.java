@@ -18,9 +18,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.teamadr.ecommerceapp.R;
-import com.teamadr.ecommerceapp.adapter.recycle_view.EndlessLoadingRecyclerViewAdapter;
+import com.teamadr.ecommerceapp.adapter.recycle_view.base.EndlessLoadingRecyclerViewAdapter;
 import com.teamadr.ecommerceapp.adapter.recycle_view.ProductAdapter;
-import com.teamadr.ecommerceapp.adapter.recycle_view.RecyclerViewAdapter;
+import com.teamadr.ecommerceapp.adapter.recycle_view.base.RecyclerViewAdapter;
 import com.teamadr.ecommerceapp.constants.StringConstant;
 import com.teamadr.ecommerceapp.custom_view.LoadingDialog;
 import com.teamadr.ecommerceapp.event_bus.DeleteEvent;
@@ -77,7 +77,7 @@ public class ProductFragment extends Fragment implements ProductView, RecyclerVi
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-     EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -94,13 +94,13 @@ public class ProductFragment extends Fragment implements ProductView, RecyclerVi
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(NewProductEvent newProductEvent){
+    public void onEvent(NewProductEvent newProductEvent) {
         productPresenter.refreshProductDto(newProductEvent.getNewProduct().getProductTypeId());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(DeleteEvent deleteEvent){
-        if (deleteEvent.isDelete()){
+    public void onEvent(DeleteEvent deleteEvent) {
+        if (deleteEvent.isDelete()) {
             productPresenter.refreshProductDto(productTypeId);
         }
     }
@@ -111,7 +111,6 @@ public class ProductFragment extends Fragment implements ProductView, RecyclerVi
 
     private void initView() {
         productAdapter = new ProductAdapter(getContext());
-        productAdapter.setLoadingMoreListener(this);
         productAdapter.addOnItemClickListener(this);
 
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -161,21 +160,21 @@ public class ProductFragment extends Fragment implements ProductView, RecyclerVi
 
     @Override
     public void showLoadingMore(boolean isShow) {
-        if (isShow) {
-            productAdapter.showLoadingItem(true);
-        } else {
-            productAdapter.hideLoadingItem();
-        }
+//        if (isShow) {
+//            productAdapter.showLoadingItem(true);
+//        } else {
+//            productAdapter.hideLoadingItem();
+//        }
     }
 
     @Override
     public void disableLoadingMore(boolean disable) {
-        productAdapter.enableLoadingMore(!disable);
+//        productAdapter.enableLoadingMore(!disable);
     }
 
     @Override
     public void enableLoadingMore(boolean enable) {
-        productAdapter.enableLoadingMore(enable);
+//        productAdapter.enableLoadingMore(enable);
     }
 
     @Override

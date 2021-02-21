@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -165,9 +166,9 @@ public class HomeActivity extends AppCompatActivity implements HomeView,
 
     private void initFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        HomeFragmentPagerAdapter homeFragmentPagerAdapter = new HomeFragmentPagerAdapter(fragmentManager, 2);
+        HomeFragmentPagerAdapter homeFragmentPagerAdapter = new HomeFragmentPagerAdapter(fragmentManager, 3);
         viewPager.setAdapter(homeFragmentPagerAdapter);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(3);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -269,11 +270,18 @@ public class HomeActivity extends AppCompatActivity implements HomeView,
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     switch (menuItem.getItemId()) {
+                        case R.id.bottom_nav_list_products:{
+                            viewPager.setCurrentItem(HomeFragmentPagerAdapter.LIST_PRODUCTS_FRAGMENT_POSITION);
+                            fabMenu.setVisibility(View.GONE);
+                        }
+                        break;
+
                         case R.id.bottom_nav_home: {
-                            viewPager.setCurrentItem(HomeFragmentPagerAdapter.PRODUCT_FRAGMENT_POSITION);
+                            viewPager.setCurrentItem(HomeFragmentPagerAdapter.HOME_FRAGMENT_POSITION);
                             fabMenu.setVisibility(View.VISIBLE);
                         }
                         break;
+
                         case R.id.bottom_nav_profile: {
                             viewPager.setCurrentItem(HomeFragmentPagerAdapter.PROFILE_FRAGMENT_POSITION);
                             fabMenu.setVisibility(View.GONE);
@@ -297,8 +305,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView,
         btnCancel = dialog.findViewById(R.id.btnCancel);
         spnFilterPrice = dialog.findViewById(R.id.spnFilterPrice);
 
-        trademarkAdapter = new TrademarkAdapter(this, listTrademark);
-        spnTrademark.setAdapter(trademarkAdapter);
+        trademarkAdapter = new TrademarkAdapter(this);
+        spnTrademark.setAdapter((SpinnerAdapter) trademarkAdapter);
 
         //add list spinner filter by price
         filterPrices = new ArrayList<>();

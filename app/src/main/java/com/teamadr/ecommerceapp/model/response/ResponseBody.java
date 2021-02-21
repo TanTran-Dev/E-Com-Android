@@ -7,19 +7,20 @@ public class ResponseBody<T> {
     private int code;
 
     @SerializedName("msg")
-    private String message;
+    private String msg;
 
     @SerializedName("data")
     private T data;
 
-    public ResponseBody(int code, String message, T data) {
+    public ResponseBody(int code, String msg, T data) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
         this.data = data;
     }
 
     public ResponseBody() {
     }
+
 
     public int getCode() {
         return code;
@@ -29,12 +30,12 @@ public class ResponseBody<T> {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public T getData() {
@@ -45,12 +46,4 @@ public class ResponseBody<T> {
         this.data = data;
     }
 
-    @Override
-    public String toString() {
-        return "ResponseBody{" +
-                "mCode=" + code +
-                ", mMessage='" + message + '\'' +
-                ", mData=" + (data == null? "" : data.toString()) +
-                '}';
-    }
 }

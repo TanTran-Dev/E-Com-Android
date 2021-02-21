@@ -1,4 +1,4 @@
-package com.teamadr.ecommerceapp.adapter.recycle_view;
+package com.teamadr.ecommerceapp.adapter.recycle_view.base;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,15 +6,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-
-/**
- * Created by Admin on 5/12/2017.
- */
 
 public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static String TAG = "RecyclerViewAdapter";
@@ -24,12 +24,14 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     private List<ModelWrapper> listWrapperModels;
     private List<ModelWrapper> listWrapperModelsBackup;
+    private Map<String, List<ModelWrapper>> filterCache;
 
     private LayoutInflater inflater;
     private List<OnItemClickListener> onItemClickListeners;
     private OnItemTouchChangedListener onItemTouchChangeListener;
     private OnItemSelectionChangedListener onItemSelectionChangeListener;
     private boolean selectedMode;
+    private boolean filteringMode;
     private RecyclerView recyclerView;
     private Context context;
 
@@ -37,20 +39,130 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.listWrapperModels = new ArrayList<>();
+        this.filterCache = new HashMap<>();
         this.onItemClickListeners = new ArrayList<>(1);
-
         setSelectedMode(enableSelectedMode);
     }
 
-//    protected DiffUtilCallBack initDiffUtilCallback(List<ModelWrapper> oldItems, List<ModelWrapper> newItems) {
-//        return new DiffUtilCallBack(oldItems, newItems);
-//    }
+    protected DiffUtilCallBack initDiffUtilCallback(List<ModelWrapper> oldItems, List<ModelWrapper> newItems) {
+        return new DiffUtilCallBack(oldItems, newItems);
+    }
 
-    public void backup() {
+    public int getItemPosition(Object item) {
+        for (int i = 0; i < listWrapperModels.size(); i++) {
+            ModelWrapper modelWrapper = listWrapperModels.get(i);
+            if (modelWrapper != null && checkItemEquals(modelWrapper.getModel(), item)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean checkItemEquals(Object item1, Object item2) {
+        return Objects.equals(item1, item2);
+    }
+
+    public void enableFilteringMode(boolean enable) {
+        if (enable && !filteringMode) {
+            filterCache.put("", listWrapperModels);
+            filteringMode = true;
+        } else if (!enable && filteringMode) {
+//            Log.i("FILTER", "clear filter cache: " + filterCache.size());
+            this.listWrapperModels = filterCache.get("");
+            filterCache.clear();
+            filteringMode = false;
+        }
+    }
+
+    public boolean isFilteringMode() {
+        return filteringMode;
+    }
+
+    public void performFiltering(String queryString) {
+        if (!filteringMode) {
+            enableFilteringMode(true);
+        }
+
+        List<ModelWrapper> results;
+        if (queryString == null || queryString.isEmpty()) {
+            results = filterCache.get("");
+//            Log.i("FILTER", "found: '" + queryString + "' (" + results.size() + ")");
+        } else {
+            results = filterCache.get(queryString);
+            if (results == null) {
+//                Log.i("FILTER", "not found: '" + queryString + "'");
+                String previousQueryString = queryString.substring(0, queryString.length() - 1);
+                List<ModelWrapper> items = findNearestFilterResults(previousQueryString);
+                results = new ArrayList<>();
+                for (ModelWrapper model : items) {
+                    if (model != null && checkFilterCondition(model, queryString)) {
+                        results.add(model);
+                    }
+                }
+                filterCache.put(queryString, results);
+//                Log.i("FILTER", "do filter: '" + queryString + "' (" + results.size() + ")");
+            } else {
+//                Log.i("FILTER", "found: '" + queryString + "' (" + results.size() + ")");
+            }
+        }
+
+        setListWrapperModels(results);
+        notifyDataSetChanged();
+    }
+
+    public int getRealModelPosition(ModelWrapper model) {
+        List<ModelWrapper> modelWrappers;
+        if (filteringMode) {
+            modelWrappers = filterCache.get("");
+        } else {
+            modelWrappers = listWrapperModels;
+        }
+        if (modelWrappers == null) {
+            return -1;
+        } else {
+            return modelWrappers.indexOf(model);
+        }
+    }
+
+    public <T> T getRealItem(int realPosition, Class<T> type) {
+        if (filteringMode) {
+            List<ModelWrapper> modelWrappers = filterCache.get("");
+            if (modelWrappers == null) {
+                return null;
+            }
+            return type.cast(modelWrappers.get(realPosition).model);
+        } else {
+            return getItem(realPosition, type);
+        }
+    }
+
+    private List<ModelWrapper> findNearestFilterResults(String queryString) {
+        List<ModelWrapper> results;
+        if (queryString == null || queryString.isEmpty()) {
+            results = filterCache.get("");
+//            Log.i("FILTER", "found: '" + queryString + "' (" + results.size() + ")");
+        } else {
+            results = filterCache.get(queryString);
+            if (results == null) {
+//                Log.i("FILTER", "not found: '" + queryString + "'");
+                String previousQueryString = queryString.substring(0, queryString.length() - 1);
+                results = findNearestFilterResults(previousQueryString);
+            } else {
+//                Log.i("FILTER", "found: '" + queryString + "' (" + results.size() + ")");
+            }
+        }
+        return results;
+    }
+
+    public boolean checkFilterCondition(ModelWrapper model, String queryString) {
+        return model.model.equals(queryString);
+    }
+
+    public void backup(boolean clone) {
         listWrapperModelsBackup = new ArrayList<>(listWrapperModels.size());
         try {
             for (ModelWrapper modelWrapper : listWrapperModels) {
-                listWrapperModelsBackup.add(modelWrapper.clone());
+                listWrapperModelsBackup.add(clone ? modelWrapper.clone() : modelWrapper);
             }
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
@@ -81,10 +193,10 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         this.onItemClickListeners.add(onItemClickListener);
     }
 
-    protected void notifyItemClickListener(RecyclerView.Adapter adapter,
-                                           RecyclerView.ViewHolder viewHolder,
-                                           int viewType,
-                                           int position) {
+    private void notifyItemClickListener(RecyclerView.Adapter adapter,
+                                         RecyclerView.ViewHolder viewHolder,
+                                         int viewType,
+                                         int position) {
         for (OnItemClickListener onItemClickListener : onItemClickListeners) {
             onItemClickListener.onItemClick(adapter, viewHolder, viewType, position);
         }
@@ -120,16 +232,22 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     public <T> void addModels(List<T> listModels, int viewType, boolean isScroll) {
-        addModels(listModels, 0, listModels.size() - 1, viewType, isScroll);
+        addModels(listModels, 0, listModels.size() - 1, viewType, isScroll, true);
     }
 
-    public <T> void addModels(List<T> listModels, int fromIndex, int toIndex, int viewType, boolean isScroll) {
+    public <T> void addModels(List<T> listModels, int viewType, boolean isScroll, boolean isUpdate) {
+        addModels(listModels, 0, listModels.size() - 1, viewType, isScroll, isUpdate);
+    }
+
+    public <T> void addModels(List<T> listModels, int fromIndex, int toIndex, int viewType, boolean isScroll, boolean isUpdate) {
         int startInsertedPosition = getItemCount();
         int endInsertedPosition = startInsertedPosition + listModels.size();
         for (int i = fromIndex; i <= toIndex; i++) {
             addModel(listModels.get(i), viewType, false, false);
         }
-        notifyItemRangeInserted(startInsertedPosition, endInsertedPosition);
+        if (isUpdate) {
+            notifyItemRangeInserted(startInsertedPosition, endInsertedPosition);
+        }
         if (isScroll) {
             getRecyclerView().scrollToPosition(listWrapperModels.size() - 1);
         }
@@ -182,23 +300,35 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         }
     }
 
-    public void removeModel(int index) {
-        this.removeModel(index, true);
+    public ModelWrapper removeModel(int index) {
+        return removeModel(index, true);
     }
 
-    public void removeModel(int index, boolean isUpdate) {
-        this.listWrapperModels.remove(index);
+    public ModelWrapper removeModel(int index, boolean isUpdate) {
+        ModelWrapper result = this.listWrapperModels.remove(index);
         if (isUpdate) {
             notifyItemRemoved(index);
+        }
+        return result;
+    }
+
+    public void removeModels(List<Integer> ascPositions) {
+        for (int i = ascPositions.size() - 1; i >= 0; i--) {
+            int position = ascPositions.get(i);
+            try {
+                listWrapperModels.remove(position);
+                notifyItemRemoved(position);
+            } catch (IndexOutOfBoundsException ignored) {
+            }
         }
     }
 
     public void setSelectedMode(boolean isSelected) {
-        if (this.selectedMode && !isSelected) {
-            deSelectAllItems(null);
+        if (this.selectedMode != isSelected) {
+            if (this.selectedMode) {
+                deSelectAllItems(null);
+            }
             notifyItemRangeChanged(0, getItemCount());
-        } else {
-            notifyDataSetChanged();
         }
         selectedMode = isSelected;
     }
@@ -232,18 +362,18 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         void onEachUnselectedItem(ModelWrapper modelWrapper);
     }
 
-//    public void removeAllSelectedItems() {
-//        if (selectedMode) {
-//            List<ModelWrapper> listItemLeft = new ArrayList<>();
-//            deSelectAllItems(listItemLeft::add);
-//
-//            DiffUtil.DiffResult diffResult = DiffUtil
-//                    .calculateDiff(initDiffUtilCallback(listWrapperModels, listItemLeft));
-//
-//            listWrapperModels = listItemLeft;
-//            diffResult.dispatchUpdatesTo(this);
-//        }
-//    }
+    public void removeAllSelectedItems() {
+        if (selectedMode) {
+            List<ModelWrapper> listItemLeft = new ArrayList<>();
+            deSelectAllItems(listItemLeft::add);
+
+            DiffUtil.DiffResult diffResult = DiffUtil
+                    .calculateDiff(initDiffUtilCallback(listWrapperModels, listItemLeft));
+
+            listWrapperModels = listItemLeft;
+            diffResult.dispatchUpdatesTo(this);
+        }
+    }
 
     public boolean isItemSelected(int position) {
         return selectedMode && position >= 0 &&
@@ -251,17 +381,22 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                 listWrapperModels.get(position).isSelected;
     }
 
-    public <T> List<T> getSelectedItemModel(Class<T> type) {
+    public <T> List<T> getSelectedItemModels(Class<T> type) {
         List<T> result = new ArrayList<>();
-        for (ModelWrapper modelWrapper : listWrapperModels) {
+        forEachSelectedItemModels(type, (index, model) -> result.add(model));
+        return result;
+    }
+
+    public <T> void forEachSelectedItemModels(Class<T> type, OnEachSelectedModel<T> onEachSelectedModel) {
+        for (int i = 0; i < listWrapperModels.size(); i++) {
+            ModelWrapper modelWrapper = listWrapperModels.get(i);
             Object model = modelWrapper.model;
             if (modelWrapper.isSelected && model != null) {
                 if (model.getClass().equals(type)) {
-                    result.add(type.cast(modelWrapper.model));
+                    onEachSelectedModel.onEachSelectedModel(i, type.cast(modelWrapper.model));
                 }
             }
         }
-        return result;
     }
 
     public <T> void forEachModels(Class<T> type, OnEachModel<T> onEachModel) {
@@ -287,12 +422,20 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         void onEachModel(T model);
     }
 
+    public interface OnEachSelectedModel<T> {
+        void onEachSelectedModel(int position, T model);
+    }
+
     public LayoutInflater getInflater() {
         return inflater;
     }
 
     public <T> T getItem(int position, Class<T> classType) {
         return classType.cast(listWrapperModels.get(position).model);
+    }
+
+    public ModelWrapper getModel(int position) {
+        return listWrapperModels.get(position);
     }
 
     @Override
@@ -324,8 +467,10 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
                     case MotionEvent.ACTION_UP: {
                         int itemPosition = getItemPosition(view);
-                        setClickStateBackground(view, viewType, false);
-                        notifyItemClickListener(RecyclerViewAdapter.this, viewHolder, viewType, itemPosition);
+                        if (itemPosition >= 0 && itemPosition < getItemCount()) {
+                            setClickStateBackground(view, viewType, false);
+                            notifyItemClickListener(RecyclerViewAdapter.this, viewHolder, viewType, itemPosition);
+                        }
                     }
                     break;
 
@@ -438,6 +583,10 @@ public abstract class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
         public boolean isSelected() {
             return isSelected;
+        }
+
+        public int getViewType() {
+            return viewType;
         }
 
         @Override

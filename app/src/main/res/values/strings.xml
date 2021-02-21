@@ -24,4 +24,15 @@
     <string name="password">Mật khẩu</string>
     <string name="email">Email</string>
     <string name="valid">valid</string>
+    <string name="no_data">Không có dữ liệu</string>
+    <string name="product_type">Loại sản phẩm</string>
+    <string name="view_more">Xem thêm</string>
+    <string name="error_happened">Có lỗi xảy ra</string>
+    <string name="error">Lỗi</string>
+    <string name="ok">Ok</string>
+    <string name="no_internet_connection">Không có kết nối Internet</string>
+    <string name="time_out">Timeout</string>
+    <string name="trademark">Thương hiệu</string>
+    <string name="list_products">Danh sách sản phẩm</string>
+    <string name="created_date">\"Ngày tạo: \"</string>
 </resources>

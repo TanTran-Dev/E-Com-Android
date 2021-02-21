@@ -1,4 +1,4 @@
-package com.teamadr.ecommerceapp.service.api;
+package com.teamadr.ecommerceapp.service.api.oauth2;
 
 import com.teamadr.ecommerceapp.model.request.auth.UsernamePasswordDto;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;

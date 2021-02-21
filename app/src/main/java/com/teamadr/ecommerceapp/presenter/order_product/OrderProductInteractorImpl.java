@@ -5,7 +5,7 @@ import android.content.Context;
 import com.teamadr.ecommerceapp.model.request.order_product.OrderProductDto;
 import com.teamadr.ecommerceapp.model.response.Page;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
-import com.teamadr.ecommerceapp.service.api.OrderProductService;
+import com.teamadr.ecommerceapp.service.api.sale_product.OrderProductService;
 import com.teamadr.ecommerceapp.service.api_client.APIClient;
 import com.teamadr.ecommerceapp.utils.UserAuth;
 

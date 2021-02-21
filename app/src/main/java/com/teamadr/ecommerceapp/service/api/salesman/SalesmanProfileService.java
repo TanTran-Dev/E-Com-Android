@@ -1,4 +1,4 @@
-package com.teamadr.ecommerceapp.service.api;
+package com.teamadr.ecommerceapp.service.api.salesman;
 
 import com.teamadr.ecommerceapp.constants.RequestContansts;
 import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;

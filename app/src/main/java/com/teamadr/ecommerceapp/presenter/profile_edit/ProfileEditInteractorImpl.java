@@ -5,8 +5,8 @@ import android.content.Context;
 import com.teamadr.ecommerceapp.model.request.salesman.NewSalesmanDto;
 import com.teamadr.ecommerceapp.model.request.customer.NewCustomerDto;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
-import com.teamadr.ecommerceapp.service.api.SalesmanProfileService;
-import com.teamadr.ecommerceapp.service.api.CustomerProfileService;
+import com.teamadr.ecommerceapp.service.api.salesman.SalesmanProfileService;
+import com.teamadr.ecommerceapp.service.api.customer.CustomerProfileService;
 import com.teamadr.ecommerceapp.service.api_client.APIClient;
 import com.teamadr.ecommerceapp.utils.UserAuth;
 

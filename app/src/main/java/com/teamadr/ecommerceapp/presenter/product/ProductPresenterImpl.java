@@ -51,7 +51,7 @@ public class ProductPresenterImpl implements ProductPresenter {
                     view.hideShimmerLoading();
                     view.hideRefreshingProgress();
 
-                    view.refreshProductDto(page.getItems(), page.getTotalItem());
+                    view.refreshProductDto(page.getItems(), page.getTotalItems());
                     pageIndex = 0;
                     view.enableLoadingMore(true);
                 },
@@ -70,7 +70,7 @@ public class ProductPresenterImpl implements ProductPresenter {
                     view.addMoreProducts(page.getItems());
                     pageIndex++;
 
-                    if (pageIndex >= Math.ceil(page.getTotalItem() / RequestContansts.NUM_PAGE_SIZE)) {
+                    if (pageIndex >= Math.ceil(page.getTotalItems() / RequestContansts.NUM_PAGE_SIZE)) {
                         view.disableLoadingMore(true);
                     } else {
                         view.disableLoadingMore(false);

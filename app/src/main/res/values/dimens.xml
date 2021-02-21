@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_6dp">6dp</dimen>
+    <dimen name="edit_text_padding">10dp</dimen>
+    <dimen name="font_size_16dp">16dp</dimen>
+    <dimen name="font_size_18dp">18dp</dimen>
+</resources>

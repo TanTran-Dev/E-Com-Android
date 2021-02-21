@@ -1,4 +1,4 @@
-package com.teamadr.ecommerceapp.service.api;
+package com.teamadr.ecommerceapp.service.api.customer;
 
 import com.teamadr.ecommerceapp.model.request.customer.NewCustomerDto;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;

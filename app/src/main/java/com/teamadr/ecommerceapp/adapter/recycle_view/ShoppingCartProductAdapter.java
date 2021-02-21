@@ -14,11 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.teamadr.ecommerceapp.R;
+import com.teamadr.ecommerceapp.adapter.recycle_view.base.EndlessLoadingRecyclerViewAdapter;
 import com.teamadr.ecommerceapp.constants.StringConstant;
 import com.teamadr.ecommerceapp.model.response.shopping_cart_product.ShoppingCartProductDto;
 import com.teamadr.ecommerceapp.view.product_detail.ProductDetailActivity;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

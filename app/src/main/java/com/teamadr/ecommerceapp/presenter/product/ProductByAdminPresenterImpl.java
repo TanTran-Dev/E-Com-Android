@@ -72,7 +72,7 @@ public class ProductByAdminPresenterImpl implements ProductByAdminPresenter {
 
                     pageIndex++;
 
-                    if (pageIndex >= Math.ceil(page.getTotalItem() / RequestContansts.NUM_PAGE_SIZE)) {
+                    if (pageIndex >= Math.ceil(page.getTotalItems() / RequestContansts.NUM_PAGE_SIZE)) {
                         view.disableLoadingMore(true);
                     } else {
                         view.disableLoadingMore(false);

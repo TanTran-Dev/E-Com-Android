@@ -10,10 +10,10 @@ import com.teamadr.ecommerceapp.model.response.Page;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
 import com.teamadr.ecommerceapp.model.response.comment.CommentDto;
 import com.teamadr.ecommerceapp.model.response.product.ProductDto;
-import com.teamadr.ecommerceapp.service.api.CommentService;
-import com.teamadr.ecommerceapp.service.api.OrderProductService;
-import com.teamadr.ecommerceapp.service.api.ProductService;
-import com.teamadr.ecommerceapp.service.api.ShoppingCartService;
+import com.teamadr.ecommerceapp.service.api.customer.CommentService;
+import com.teamadr.ecommerceapp.service.api.sale_product.OrderProductService;
+import com.teamadr.ecommerceapp.service.api.sale_product.ProductService;
+import com.teamadr.ecommerceapp.service.api.sale_product.ShoppingCartService;
 import com.teamadr.ecommerceapp.service.api_client.APIClient;
 import com.teamadr.ecommerceapp.utils.UserAuth;
 

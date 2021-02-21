@@ -21,8 +21,8 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.gdacciaro.iOSDialog.iOSDialog;
 import com.gdacciaro.iOSDialog.iOSDialogBuilder;
 import com.teamadr.ecommerceapp.R;
-import com.teamadr.ecommerceapp.adapter.recycle_view.EndlessLoadingRecyclerViewAdapter;
-import com.teamadr.ecommerceapp.adapter.recycle_view.RecyclerViewAdapter;
+import com.teamadr.ecommerceapp.adapter.recycle_view.base.EndlessLoadingRecyclerViewAdapter;
+import com.teamadr.ecommerceapp.adapter.recycle_view.base.RecyclerViewAdapter;
 import com.teamadr.ecommerceapp.adapter.recycle_view.ShoppingCartProductAdapter;
 import com.teamadr.ecommerceapp.constants.StringConstant;
 import com.teamadr.ecommerceapp.event_bus.ShoppingCartEvent;
@@ -265,7 +265,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements ShoppingC
                 .setCancelable(false)
                 .setPositiveListener("Xác nhận", dialog -> {
                     List<ShoppingCartProductDto> list =
-                            shoppingCartProductAdapter.getSelectedItemModel(ShoppingCartProductDto.class);
+                            shoppingCartProductAdapter.getSelectedItemModels(ShoppingCartProductDto.class);
                     List<String> listShoppingCartProductId = new ArrayList<>();
 
                     for (ShoppingCartProductDto shoppingCartProductDto : list) {

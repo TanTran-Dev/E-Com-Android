@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.teamadr.ecommerceapp.R;
+import com.teamadr.ecommerceapp.adapter.recycle_view.base.EndlessLoadingRecyclerViewAdapter;
+import com.teamadr.ecommerceapp.adapter.recycle_view.base.RecyclerViewAdapter;
 import com.teamadr.ecommerceapp.model.response.product.ProductDto;
 
 import java.util.List;
@@ -19,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ProductAdapter extends EndlessLoadingRecyclerViewAdapter {
+public class ProductAdapter extends RecyclerViewAdapter {
 
     public ProductAdapter(Context context) {
         super(context, false);
@@ -33,43 +35,31 @@ public class ProductAdapter extends EndlessLoadingRecyclerViewAdapter {
 
     @Override
     protected void bindNormalViewHolder(NormalViewHolder holder, int position) {
-        if (holder instanceof ProductViewHolder) {
-            ProductViewHolder productViewHolder = (ProductViewHolder) holder;
-            ProductDto productDto = getItem(position, ProductDto.class);
+        ProductViewHolder productViewHolder = (ProductViewHolder) holder;
+        ProductDto productDto = getItem(position, ProductDto.class);
 
 
-            Glide.with(productViewHolder.itemView.getContext()).load(productDto.getSmallImageUrl())
-                    .error(R.drawable.logo_placeholder)
-                    .into(productViewHolder.imgProduct);
+        Glide.with(productViewHolder.itemView.getContext()).load(productDto.getSmallImageUrl())
+                .error(R.drawable.logo_placeholder)
+                .into(productViewHolder.imgProduct);
 
 
-            productViewHolder.txtProductName.setText(productDto.getName());
-            productViewHolder.txtProductPrice.setText(String.valueOf(productDto.getPrice()));
-            productViewHolder.txtInformation.setText(productDto.getInformation());
-            productViewHolder.txtCreatedDate.setText("Ngày tạo: " + productDto.getCreatedDate());
+        productViewHolder.txtProductName.setText(productDto.getName());
+        productViewHolder.txtProductPrice.setText(String.valueOf(productDto.getPrice()));
+        productViewHolder.txtInformation.setText(productDto.getInformation());
+        productViewHolder.txtCreatedDate.setText(getContext().getString(R.string.created_date) + productDto.getCreatedDate());
 
 
-            if (isInSelectedMode()) {
-                productViewHolder.chkDelete.setVisibility(View.VISIBLE);
-                if (isItemSelected(position)) {
-                    productViewHolder.chkDelete.setChecked(true);
-                } else {
-                    productViewHolder.chkDelete.setChecked(false);
-                }
+        if (isInSelectedMode()) {
+            productViewHolder.chkDelete.setVisibility(View.VISIBLE);
+            if (isItemSelected(position)) {
+                productViewHolder.chkDelete.setChecked(true);
             } else {
-                productViewHolder.chkDelete.setVisibility(View.GONE);
+                productViewHolder.chkDelete.setChecked(false);
             }
+        } else {
+            productViewHolder.chkDelete.setVisibility(View.GONE);
         }
-    }
-
-    @Override
-    protected RecyclerView.ViewHolder initLoadingViewHolder(ViewGroup parent) {
-        View view = getInflater().inflate(R.layout.item_loading, parent, false);
-        return new LoadingViewHolder(view);
-    }
-
-    @Override
-    protected void bindLoadingViewHolder(LoadingViewHolder loadingViewHolder, int position) {
 
     }
 

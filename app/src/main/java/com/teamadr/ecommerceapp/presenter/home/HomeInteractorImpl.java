@@ -5,7 +5,7 @@ import android.content.Context;
 import com.teamadr.ecommerceapp.model.response.Page;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
 import com.teamadr.ecommerceapp.model.response.trademark.TrademarkDto;
-import com.teamadr.ecommerceapp.service.api.TrademarkService;
+import com.teamadr.ecommerceapp.service.api.sale_product.TrademarkService;
 import com.teamadr.ecommerceapp.service.api_client.APIClient;
 
 import java.util.List;

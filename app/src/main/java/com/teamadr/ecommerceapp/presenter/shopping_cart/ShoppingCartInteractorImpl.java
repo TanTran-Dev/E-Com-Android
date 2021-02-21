@@ -5,7 +5,7 @@ import android.content.Context;
 import com.teamadr.ecommerceapp.model.response.Page;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
 import com.teamadr.ecommerceapp.model.response.shopping_cart_product.ShoppingCartProductDto;
-import com.teamadr.ecommerceapp.service.api.ShoppingCartService;
+import com.teamadr.ecommerceapp.service.api.sale_product.ShoppingCartService;
 import com.teamadr.ecommerceapp.service.api_client.APIClient;
 import com.teamadr.ecommerceapp.utils.UserAuth;
 

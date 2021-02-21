@@ -8,9 +8,9 @@ import com.teamadr.ecommerceapp.model.response.product.ProductDto;
 import com.teamadr.ecommerceapp.model.response.ResponseBody;
 import com.teamadr.ecommerceapp.model.response.product_type.ProductTypeDto;
 import com.teamadr.ecommerceapp.model.response.trademark.TrademarkDto;
-import com.teamadr.ecommerceapp.service.api.ProductService;
-import com.teamadr.ecommerceapp.service.api.ProductTypeService;
-import com.teamadr.ecommerceapp.service.api.TrademarkService;
+import com.teamadr.ecommerceapp.service.api.sale_product.ProductService;
+import com.teamadr.ecommerceapp.service.api.sale_product.ProductTypeService;
+import com.teamadr.ecommerceapp.service.api.sale_product.TrademarkService;
 import com.teamadr.ecommerceapp.service.api_client.APIClient;
 import com.teamadr.ecommerceapp.utils.UserAuth;
 
